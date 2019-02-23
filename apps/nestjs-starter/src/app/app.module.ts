@@ -15,7 +15,7 @@ import { AirportModule } from './airport/airport.module';
     MongooseModule.forRoot(''),
     AirportModule
   ],
-  controllers: [AppController],
+  controllers: [AppController, FlightController],
   providers: [AppService],
 })
 export class AppModule {}
