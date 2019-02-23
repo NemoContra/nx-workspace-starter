@@ -1,0 +1,29 @@
+import { Injectable } from '@angular/core';
+import { AbstractFlightService } from './abstract-flight.service';
+import { Observable, of } from 'rxjs';
+import type { Flight } from '@flight-app/shared';
+
+@Injectable()
+export class DummyFlightService implements AbstractFlightService {
+  find(_from: string, _to: string): Observable<Flight[]> {
+    return of([
+      {
+        id: 17,
+        from: 'Graz',
+        to: 'Hamburg',
+        date: '2022-01-01',
+        delayed: true,
+      },
+    ]);
+  }
+
+  save(_flight: Flight): Observable<Flight> {
+    return of({
+      id: 17,
+      from: 'Graz',
+      to: 'Hamburg',
+      date: '2022-01-01',
+      delayed: true,
+    });
+  }
+}
