@@ -1,10 +1,20 @@
 import { Module } from '@nestjs/common';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { FlightModule } from './flight/flight.module';
+import { PassengerModule } from './passenger/passenger.module';
+import { CoreModule } from './core/core.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AirportModule } from './airport/airport.module';
 
 @Module({
-  imports: [],
+  imports: [
+    FlightModule,
+    AirportModule,
+    PassengerModule,
+    CoreModule,
+    MongooseModule.forRoot('mongodb://localhost:27017/nx-starter'),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
