@@ -1,0 +1,42 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type FlightObjectType {
+  id: Int!
+  from: String!
+  to: String!
+  date: String!
+  delayed: Boolean
+}
+
+type Query {
+  flight(id: Int!): FlightObjectType!
+  flights(
+    from: String!
+    to: String!
+    fromDate: String
+    toDate: String
+  ): [FlightObjectType!]!
+}
+
+type Mutation {
+  createFlight(flight: CreateFlight!): FlightObjectType!
+  updateFlight(flight: UpdateFlight!): FlightObjectType!
+}
+
+input CreateFlight {
+  id: Int
+  from: String!
+  to: String!
+  date: String!
+  delayed: Boolean
+}
+
+input UpdateFlight {
+  id: Int!
+  from: String!
+  to: String!
+  date: String!
+  delayed: Boolean
+}
