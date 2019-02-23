@@ -1,0 +1,51 @@
+{
+  "sourceRoot": "apps/standalone-starter/src",
+  "projectType": "application",
+  "architect": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/standalone-starter",
+        "main": "apps/standalone-starter/src/main.ts",
+        "tsConfig": "apps/standalone-starter/tsconfig.app.json",
+        "assets": ["apps/standalone-starter/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/standalone-starter/src/environments/environment.ts",
+              "with": "apps/standalone-starter/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "options": {
+        "buildTarget": "standalone-starter:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/standalone-starter/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/standalone-starter"],
+      "options": {
+        "jestConfig": "apps/standalone-starter/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
