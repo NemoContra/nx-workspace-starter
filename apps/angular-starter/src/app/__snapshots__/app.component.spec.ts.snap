@@ -42,7 +42,12 @@ exports[`AppComponent should render 1`] = `
                   class="ti-home"
                 />
                 <p>
-                  Home
+                  <a
+                    href="/home"
+                    routerlink="home"
+                  >
+                    Home
+                  </a>
                 </p>
               </a>
             </li>
@@ -52,7 +57,12 @@ exports[`AppComponent should render 1`] = `
                   class="ti-arrow-top-right"
                 />
                 <p>
-                  Flights
+                  <a
+                    href="/flight-search"
+                    routerlink="flight-search"
+                  >
+                    Flights
+                  </a>
                 </p>
               </a>
             </li>
@@ -62,7 +72,12 @@ exports[`AppComponent should render 1`] = `
                   class="ti-user"
                 />
                 <p>
-                  Passengers
+                  <a
+                    href="/passenger-search"
+                    routerlink="passenger-search"
+                  >
+                    Passengers
+                  </a>
                 </p>
               </a>
             </li>
@@ -213,6 +228,7 @@ exports[`AppComponent should render 1`] = `
         class="content"
       >
          Hello World! 
+        <router-outlet />
       </div>
     </div>
   </div>
