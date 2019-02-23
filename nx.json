@@ -1,5 +1,5 @@
 {
-  "npmScope": "nx-workspace-starter",
+  "npmScope": "flight-app",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -15,6 +15,9 @@
       "tags": []
     },
     "angular-starter-e2e": {
+      "tags": []
+    },
+    "shared": {
       "tags": []
     }
   }
