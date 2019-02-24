@@ -7,12 +7,15 @@ import {
   Param,
   Delete,
   HttpCode,
-  NotFoundException
+  NotFoundException,
+  UseGuards
 } from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
 import { FlightService } from './flight.service';
+import { AuthenticationGuard } from '../authentication/authentication.guard';
 
 @Controller('flight')
+@UseGuards(AuthenticationGuard)
 export class FlightController {
 
     constructor(private flightService: FlightService) {
