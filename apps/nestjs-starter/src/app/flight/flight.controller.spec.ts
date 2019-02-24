@@ -21,6 +21,7 @@ describe('Flight Controller', () => {
   it('should return an empty array for GET "/flight"', () => {
     return request(app.getHttpServer())
       .get('/flight')
+      .set('authorization', 'Bearer jwt123456token')
       .expect(200)
       .expect([]);
   });
@@ -28,6 +29,7 @@ describe('Flight Controller', () => {
   it('should return correct flights for GET "/flight?from=Hamburg&to=Graz"', () => {
     return request(app.getHttpServer())
       .get('/flight?from=Hamburg&to=Graz')
+      .set('authorization', 'Bearer jwt123456token')
       .expect(200)
       .expect([
         {
@@ -57,6 +59,7 @@ describe('Flight Controller', () => {
   it('should return correct flight for GET "/flight/3', () => {
     return request(app.getHttpServer())
       .get('/flight/3')
+      .set('authorization', 'Bearer jwt123456token')
       .expect(200)
       .expect({
         id: 3,
@@ -70,6 +73,7 @@ describe('Flight Controller', () => {
   it('should successfully create a new flight for POST "/flight"', () => {
     return request(app.getHttpServer())
       .post('/flight')
+      .set('authorization', 'Bearer jwt123456token')
       .send({
         from: 'Stuttgart',
         to: 'Hamburg',
@@ -90,6 +94,7 @@ describe('Flight Controller', () => {
   it('should successfully delete a flight for DELETE "/flight/174"', () => {
     return request(app.getHttpServer())
       .delete('/flight/174')
+      .set('authorization', 'Bearer jwt123456token')
       .expect(200)
       .expect({});
   });
@@ -97,8 +102,19 @@ describe('Flight Controller', () => {
   it('should return HTTP-Status 404 for DELETE "/flight/175"', () => {
     return request(app.getHttpServer())
       .delete('/flight/175')
+      .set('authorization', 'Bearer jwt123456token')
       .expect(404)
       .expect({ statusCode: 404, error: 'Not Found', message: 'Flight not found.' });
+  });
+
+  it('should return HTTP-Status 401 if no "Authorization" Header is set', () => {
+    return request(app.getHttpServer())
+      .get('/flight')
+      .expect(401)
+      .expect({
+        statusCode: 401,
+        error: 'Unauthorized'
+      });
   });
 
   afterAll(async () => {
