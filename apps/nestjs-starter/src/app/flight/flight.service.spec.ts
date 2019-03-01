@@ -66,6 +66,21 @@ describe('FlightService', () => {
     });
   });
 
+  it('should return correct flight for "createFlight"', () => {
+    expect(service.createFlight({
+      from: 'Hamburg',
+      to: 'Graz',
+      date: '2019-02-22T09:07:54.1624336+00:00',
+      delayed: false
+    })).toEqual({
+      id: 175,
+      from: 'Hamburg',
+      to: 'Graz',
+      date: '2019-02-22T09:07:54.1624336+00:00',
+      delayed: false
+    });
+  });
+
   it('should return true for "deleteFlight"', () => {
     expect(service.deleteFlight(4)).toEqual(true);
   });
