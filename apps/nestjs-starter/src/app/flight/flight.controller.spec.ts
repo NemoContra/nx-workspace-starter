@@ -91,6 +91,20 @@ describe('Flight Controller', () => {
       });
   });
 
+  it('should return HTTP-Status 400 for an invalid Flight for POST "/flight"', () => {
+    return request(app.getHttpServer())
+      .post('/flight')
+      .set('authorization', 'Bearer jwt123456token')
+      .send({
+        from: 'Stuttgart',
+        to: 1,
+        date: '2019-02-23T07:07:54.1624336+00:00',
+        delayed: false,
+        id: 3
+      })
+      .expect(400);
+  });
+
   it('should successfully delete a flight for DELETE "/flight/174"', () => {
     return request(app.getHttpServer())
       .delete('/flight/174')

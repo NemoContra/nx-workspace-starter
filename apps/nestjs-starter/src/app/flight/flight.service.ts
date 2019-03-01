@@ -6,8 +6,15 @@ import flights from '../../../mock-data/flights.json';
 export class FlightService {
   private flights: Flight[] = flights;
 
-  public getFlights(from: string, to: string): Flight[] {
-    return this.flights.filter(flight => flight.from === from && flight.to === to);
+  public getFlights(from: string, to: string, fromDate?: Date, toDate?: Date): Flight[] {
+    let filteredFlights = this.flights;
+    if (fromDate) {
+      filteredFlights = filteredFlights.filter(flight => new Date(flight.date) >= fromDate);
+    }
+    if (toDate) {
+      filteredFlights = filteredFlights.filter(flight => new Date(flight.date) <= toDate);
+    }
+    return filteredFlights.filter(flight => flight.from === from && flight.to === to);
   }
 
   public getFlightById(id: number): Flight {
