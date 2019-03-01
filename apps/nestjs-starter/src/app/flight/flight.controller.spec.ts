@@ -22,7 +22,7 @@ describe('Flight Controller', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       modules: [MockModule, CoreModule],
-      providers: [FlightService]
+      providers: [FlightService, Logger]
     }).compile();
 
     flightService = module.get<FlightService>(FlightService);
@@ -114,6 +114,20 @@ describe('Flight Controller', () => {
       })
       .expect(201)
       .expect(mockFlight);
+  });
+
+  it('should return HTTP-Status 400 for an invalid Flight for POST "/flight"', () => {
+    return request(app.getHttpServer())
+      .post('/flight')
+      .set('authorization', 'Bearer jwt123456token')
+      .send({
+        from: 'Stuttgart',
+        to: 1,
+        date: '2019-02-23T07:07:54.1624336+00:00',
+        delayed: false,
+        id: 3
+      })
+      .expect(400);
   });
 
   it('should return HTTP-Status 400 for an invalid Flight for POST "/flight"', () => {
