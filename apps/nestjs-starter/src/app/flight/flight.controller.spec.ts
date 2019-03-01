@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { FlightController } from './flight.controller';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { FlightService } from './flight.service';
 
 describe('Flight Controller', () => {
@@ -11,7 +11,7 @@ describe('Flight Controller', () => {
   beforeAll(async () => {
     module = await Test.createTestingModule({
       controllers: [FlightController],
-      providers: [FlightService]
+      providers: [FlightService, Logger]
     }).compile();
 
     app = module.createNestApplication();
