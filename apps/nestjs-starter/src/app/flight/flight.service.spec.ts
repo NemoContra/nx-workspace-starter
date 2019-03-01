@@ -15,27 +15,34 @@ describe('FlightService', () => {
     expect(service.searchFlights('', '')).toEqual([]);
   });
 
-  it('should return correct flights if "Hamburg" and "Graz" is passed in "searchFlights"', () => {
-    expect(service.searchFlights('Hamburg', 'Graz')).toEqual([
+  it('should return correct flights if "Stuttgart" and "Salzburg" is passed in "searchFlights"', () => {
+    const result = service.searchFlights(
+      'Stuttgart',
+      'Salzburg',
+      new Date('2019-02-28T00:06:54'),
+      new Date('2019-03-02T00:08:54')
+    );
+    expect(result.length).toEqual(3);
+    expect(result).toEqual([
       {
-        id: 3,
-        from: 'Hamburg',
-        to: 'Graz',
-        date: '2019-02-22T07:07:54.1624336+00:00',
+        id: 171,
+        from: 'Stuttgart',
+        to: 'Salzburg',
+        date: '2019-03-01T09:07:54.1624336+00:00',
         delayed: false
       },
       {
-        id: 4,
-        from: 'Hamburg',
-        to: 'Graz',
-        date: '2019-02-22T09:07:54.1624336+00:00',
+        id: 172,
+        from: 'Stuttgart',
+        to: 'Salzburg',
+        date: '2019-03-01T10:07:54.1624336+00:00',
         delayed: false
       },
       {
-        id: 5,
-        from: 'Hamburg',
-        to: 'Graz',
-        date: '2019-02-22T12:07:54.1624336+00:00',
+        id: 173,
+        from: 'Stuttgart',
+        to: 'Salzburg',
+        date: '2019-03-01T11:07:54.1624336+00:00',
         delayed: false
       }
     ]);
