@@ -31,7 +31,7 @@ describe('AuthenticationGuard', () => {
       .expect(401)
       .expect({
         statusCode: 401,
-        error: 'Unauthorized'
+        message: 'Unauthorized'
       });
   });
 
@@ -41,7 +41,7 @@ describe('AuthenticationGuard', () => {
       .expect(401)
       .expect({
         statusCode: 401,
-        error: 'Unauthorized'
+        message: 'Unauthorized'
       });
   });
 });
