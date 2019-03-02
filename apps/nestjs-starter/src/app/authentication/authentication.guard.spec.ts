@@ -1,7 +1,8 @@
 import { AuthenticationGuard } from './authentication.guard';
-import { Controller, Get, INestApplication, UseGuards } from '@nestjs/common';
+import { Controller, Get, INestApplication, MiddlewareConsumer, Module, NestModule, UseGuards } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
+import { UserMiddleware } from '../middleware/user.middleware';
 
 describe('AuthenticationGuard', () => {
   let app: INestApplication;
@@ -9,7 +10,7 @@ describe('AuthenticationGuard', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      controllers: [TestingController]
+      modules: [MockModule]
     }).compile();
 
     app = module.createNestApplication();
@@ -54,5 +55,13 @@ class TestingController {
   testFunction() {
     return 'success!';
   }
+}
 
+@Module({
+  controllers: [TestingController]
+})
+class MockModule implements NestModule {
+  configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
+    consumer.apply(UserMiddleware).with({role: 'admin'}).forRoutes(TestingController)
+  }
 }
