@@ -1,13 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { FlightController } from './flight.controller';
-import {
-  INestApplication,
-  Logger,
-  MiddlewareConsumer,
-  Module,
-  NestModule
-} from '@nestjs/common';
+import { INestApplication, Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { UserMiddleware } from '../middleware/user.middleware';
 import { CoreModule } from '../core/core.module';
