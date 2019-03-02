@@ -1,12 +1,14 @@
-import { ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
+import { CallHandler, ExecutionContext, Inject, Injectable, NestInterceptor, Optional } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
 @Injectable()
 export class DelayInterceptor implements NestInterceptor {
-  intercept(context: ExecutionContext, call$: Observable<any>): Observable<any> {
-    return call$.pipe(
-      delay(2000)
+  constructor(@Optional() @Inject('DELAY_TIME') private delayTime: number = 0) {
+  }
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    return next.handle().pipe(
+      delay(this.delayTime)
     );
   }
 }
