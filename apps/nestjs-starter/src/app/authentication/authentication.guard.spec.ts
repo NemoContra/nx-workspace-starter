@@ -10,7 +10,7 @@ describe('AuthenticationGuard', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      modules: [MockModule]
+      imports: [MockModule]
     }).compile();
 
     app = module.createNestApplication();
@@ -29,20 +29,20 @@ describe('AuthenticationGuard', () => {
     return request(app.getHttpServer())
       .get('/test')
       .set('authorization', 'Bearer test')
-      .expect(401)
+      .expect(418)
       .expect({
-        statusCode: 401,
-        error: 'Unauthorized'
+        statusCode: 418,
+        message: 'I\'m a Teapot'
       });
   });
 
   it('should return HTTP-Status 403 if no header is set', () => {
     return request(app.getHttpServer())
       .get('/test')
-      .expect(401)
+      .expect(418)
       .expect({
-        statusCode: 401,
-        error: 'Unauthorized'
+        statusCode: 418,
+        message: 'I\'m a Teapot'
       });
   });
 });
@@ -58,10 +58,11 @@ class TestingController {
 }
 
 @Module({
-  controllers: [TestingController]
+  controllers: [TestingController],
+  providers: [{provide: 'USER', useValue: {role: 'admin'}}]
 })
 class MockModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
-    consumer.apply(UserMiddleware).with({role: 'admin'}).forRoutes(TestingController)
+    consumer.apply(UserMiddleware).forRoutes(TestingController)
   }
 }
