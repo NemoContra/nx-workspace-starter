@@ -2,13 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UserMiddleware } from './user.middleware';
 
 describe('UserMiddleware', () => {
-  let service: UserMiddleware;
+  let middleware: UserMiddleware;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [UserMiddleware]
     }).compile();
-    service = module.get<UserMiddleware>(UserMiddleware);
+    middleware = module.get<UserMiddleware>(UserMiddleware);
   });
 
   it('should set the user to the request object', async () => {
@@ -21,7 +21,7 @@ describe('UserMiddleware', () => {
       role: 'admin'
     };
 
-    const middlewarefunction = service.resolve(user);
+    const middlewarefunction = middleware.resolve(user);
 
     middlewarefunction(request, undefined, () => {
       expect(request.user).toEqual(user);
@@ -31,7 +31,7 @@ describe('UserMiddleware', () => {
   it('should set no user to the request if it is not provided', async () => {
     const request: any = {};
 
-    const middlewarefunction = service.resolve(undefined);
+    const middlewarefunction = middleware.resolve(undefined);
 
     middlewarefunction(request, undefined, () => {
       expect(request.user).toEqual(undefined);

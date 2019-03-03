@@ -118,17 +118,14 @@ describe('Flight Controller', () => {
       .delete('/flight/175')
       .set('authorization', 'Bearer jwt123456token')
       .expect(404)
-      .expect({ statusCode: 404, error: 'Not Found', message: 'Flight not found.' });
+      .expect({ message: 'Custom message!' });
   });
 
   it('should return HTTP-Status 401 if no "Authorization" Header is set', () => {
     return request(app.getHttpServer())
       .get('/flight')
-      .expect(401)
-      .expect({
-        statusCode: 401,
-        error: 'Unauthorized'
-      });
+      .expect(418)
+      .expect({ message: 'Custom message!' });
   });
 
   afterAll(async () => {
