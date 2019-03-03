@@ -19,10 +19,12 @@ import { AuthenticationGuard } from '../authentication/authentication.guard';
 import { DelayInterceptor } from '../interceptors/delay.interceptor';
 import { LoggerInterceptor } from '../interceptors/logger.interceptor';
 import { Observable } from 'rxjs';
+import { CustomHttpFilter } from '../filters/custom-http.filter';
 
 @Controller('flight')
 @UseGuards(AuthenticationGuard)
 @UseInterceptors(LoggerInterceptor, DelayInterceptor)
+@UseFilters(CustomHttpFilter)
 export class FlightController {
 
   constructor(private flightService: FlightService) {
