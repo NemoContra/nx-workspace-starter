@@ -1,5 +1,6 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { TeapotException } from '../exceptions/teapot.exception';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
@@ -11,6 +12,6 @@ export class AuthenticationGuard implements CanActivate {
     if (authorizationHeader && authorizationHeader.indexOf('Bearer jwt123456token') !== -1 && request.user && request.user.role === 'admin') {
       return true;
     }
-    throw new UnauthorizedException();
+    throw new TeapotException();
   }
 }
