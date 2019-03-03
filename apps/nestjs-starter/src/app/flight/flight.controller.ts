@@ -21,6 +21,7 @@ import { DelayInterceptor } from '../interceptors/delay.interceptor';
 import { LoggerInterceptor } from '../interceptors/logger.interceptor';
 import { DatePipe } from '../pipes/date.pipe';
 import { CustomHttpFilter } from '../filters/custom-http.filter';
+import { Observable } from 'rxjs';
 
 @Controller('flight')
 @UseGuards(AuthenticationGuard)
@@ -41,7 +42,7 @@ export class FlightController {
   }
 
   @Get(':id')
-  getFlightById(@Param('id') id: string): Flight {
+  getFlightById(@Param('id') id: string): Observable<Flight> {
     return this.flightService.getFlightById(+id);
   }
 
