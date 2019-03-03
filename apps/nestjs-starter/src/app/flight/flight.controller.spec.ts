@@ -1,19 +1,28 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { FlightController } from './flight.controller';
-import { INestApplication, Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {
+  INestApplication,
+  Logger,
+  MiddlewareConsumer,
+  Module,
+  NestModule
+} from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { UserMiddleware } from '../middleware/user.middleware';
+import { CoreModule } from '../core/core.module';
 
 describe('Flight Controller', () => {
   let app: INestApplication;
   let module: TestingModule;
+  let flightService: FlightService;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      modules: [MockModule]
+      modules: [MockModule, CoreModule]
     }).compile();
 
+    flightService = module.get<FlightService>(FlightService);
     app = module.createNestApplication();
     await app.init();
   });
@@ -57,6 +66,14 @@ describe('Flight Controller', () => {
   });
 
   it('should return correct flight for GET "/flight/3', () => {
+    spyOn(flightService, 'getFlightById').and.returnValue({
+      id: 3,
+      from: 'Hamburg',
+      to: 'Graz',
+      date: '2019-02-22T07:07:54.1624336+00:00',
+      delayed: false
+    });
+
     return request(app.getHttpServer())
       .get('/flight/3')
       .set('authorization', 'Bearer jwt123456token')
