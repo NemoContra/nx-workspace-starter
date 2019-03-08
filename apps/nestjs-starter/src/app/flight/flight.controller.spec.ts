@@ -12,6 +12,8 @@ import { FlightService } from './flight.service';
 import { UserMiddleware } from '../middleware/user.middleware';
 import { CoreModule } from '../core/core.module';
 import { Flight } from '@flight-app/shared';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { FlightEntity } from './flight.entity';
 
 describe('Flight Controller', () => {
   let app: INestApplication;
@@ -20,7 +22,7 @@ describe('Flight Controller', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      modules: [MockModule, CoreModule]
+      imports: [MockModule, CoreModule]
     }).compile();
 
     flightService = module.get<FlightService>(FlightService);
@@ -160,11 +162,19 @@ describe('Flight Controller', () => {
 
 @Module({
   controllers: [FlightController],
-  providers: [FlightService, Logger]
+  providers: [
+    FlightService,
+    Logger,
+    {
+      provide: getRepositoryToken(FlightEntity),
+      useValue: ''
+    },
+    {provide: 'USER', useValue: {role: 'admin'}}
+  ]
 })
 class MockModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
-    consumer.apply(UserMiddleware).with({ role: 'admin' }).forRoutes(FlightController);
+    consumer.apply(UserMiddleware).forRoutes(FlightController)
   }
 }
 

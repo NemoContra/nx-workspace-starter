@@ -45,6 +45,7 @@
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.8.0",
+    "@nestjs/typeorm": "^7.1.5",
     "@ngrx/effects": "11.0.1",
     "@ngrx/router-store": "11.0.1",
     "@ngrx/store": "11.0.1",
@@ -55,9 +56,11 @@
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
     "core-js": "^3.9.1",
+    "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.7",
     "swagger-ui-express": "^4.1.6",
+    "typeorm": "^0.2.31",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

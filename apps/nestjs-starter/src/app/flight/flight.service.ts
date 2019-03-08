@@ -1,26 +1,33 @@
-import { HttpException, HttpService, Injectable } from '@nestjs/common';
+import { HttpException, HttpService, Injectable, NotFoundException } from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
 import flights from '../../../mock-data/flights.json';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AxiosError } from 'axios';
+import { FlightEntity } from './flight.entity';
+import { Repository, UpdateResult } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class FlightService {
   private flights: Flight[] = flights;
 
-  constructor(private httpService: HttpService) {
+  constructor(@InjectRepository(FlightEntity) private flightRepository: Repository<FlightEntity>,
+              private httpService: HttpService) {
   }
 
-  public searchFlights(from: string, to: string, fromDate?: Date, toDate?: Date): Flight[] {
-    let filteredFlights = this.flights;
+  public searchFlights(from: string, to: string, fromDate?: Date, toDate?: Date): Promise<FlightEntity[]> {
+    const query = this.flightRepository.createQueryBuilder()
+      .select('flight_entity')
+      .from(FlightEntity, 'flight_entity')
+      .where({ from, to });
     if (fromDate) {
-      filteredFlights = filteredFlights.filter(flight => new Date(flight.date) >= fromDate);
+      query.andWhere('date >= :fromDate', { fromDate });
     }
     if (toDate) {
-      filteredFlights = filteredFlights.filter(flight => new Date(flight.date) <= toDate);
+      query.andWhere('date <= :toDate', { toDate });
     }
-    return filteredFlights.filter(flight => flight.from === from && flight.to === to);
+    return query.getMany();
   }
 
   public getFlightById(id: number): Observable<Flight> {
@@ -31,21 +38,24 @@ export class FlightService {
       );
   }
 
-  public createFlight(flight: Flight): Flight {
-    const newFlight: Flight = {
-      ...flight,
-      id: this.flights.length + 1
-    };
-    this.flights = [
-      ...this.flights,
-      newFlight
-    ];
-    return newFlight;
+  public createFlight(flight: Flight): Promise<FlightEntity> {
+    const newFlight = new FlightEntity();
+    newFlight.from = flight.from;
+    newFlight.to = flight.to;
+    newFlight.date = flight.date;
+    newFlight.delayed = flight.delayed;
+    return this.flightRepository.save(newFlight);
   }
 
-  public deleteFlight(id: number): boolean {
-    const length = this.flights.length;
-    this.flights = this.flights.filter(flight => flight.id !== +id);
-    return length !== this.flights.length
+  public async updateFlight(flight: Flight): Promise<any> {
+    const result: UpdateResult = await this.flightRepository.update({id: flight.id}, flight);
+    if (result.raw && result.raw.affectedRows && result.raw.affectedRows === 1) {
+      return flight;
+    }
+    throw new NotFoundException();
+  }
+
+  public async deleteFlight(id: number): Promise<boolean> {
+    return !!(await this.flightRepository.delete({ id })).affected;
   }
 }

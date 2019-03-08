@@ -11,7 +11,7 @@ import {
   UseGuards,
   UseInterceptors,
   UsePipes,
-  ValidationPipe
+  ValidationPipe, Put
 } from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
 import { FlightService } from './flight.service';
@@ -20,6 +20,7 @@ import { DelayInterceptor } from '../interceptors/delay.interceptor';
 import { LoggerInterceptor } from '../interceptors/logger.interceptor';
 import { DatePipe } from '../pipes/date.pipe';
 import { Observable } from 'rxjs';
+import { FlightEntity } from './flight.entity';
 
 @Controller('flight')
 @UseGuards(AuthenticationGuard)
@@ -34,7 +35,7 @@ export class FlightController {
     @Query('from') from: string,
     @Query('to') to: string,
     @Query('fromDate', DatePipe) fromDate: Date,
-    @Query('toDate', DatePipe) toDate: Date): Flight[] {
+    @Query('toDate', DatePipe) toDate: Date): Promise<FlightEntity[]> {
     return this.flightService.searchFlights(from, to, fromDate, toDate);
   }
 
@@ -46,8 +47,14 @@ export class FlightController {
   @Post()
   @HttpCode(201)
   @UsePipes(ValidationPipe)
-  createFlight(@Body() flight: Flight): Flight {
+  createFlight(@Body() flight: Flight): Promise<FlightEntity> {
     return this.flightService.createFlight(flight);
+  }
+
+  @Put()
+  @UsePipes(ValidationPipe)
+  updateFlight(@Body() flight: Flight): Promise<FlightEntity> {
+    return this.flightService.updateFlight(flight);
   }
 
   @Delete(':id')
