@@ -1,24 +1,15 @@
 import {
-  HttpException,
-  HttpService,
   Injectable,
   NotFoundException
 } from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
-import flights from '../../../mock-data/flights.json';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { AxiosError } from 'axios';
 import { InjectModel } from '@nestjs/mongoose';
 import { FlightDocument } from './flight.schema';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class FlightService {
-  private flights: Flight[] = flights;
-
-  constructor(@InjectModel('Flight') private flightModel: Model<FlightDocument>,
-              private httpService: HttpService) {
+  constructor(@InjectModel('Flight') private flightModel: Model<FlightDocument>) {
   }
 
   public searchFlights(from: string, to: string, fromDate?: string, toDate?: string): Promise<Flight[]> {
@@ -33,12 +24,12 @@ export class FlightService {
     return this.flightModel.find(query).exec();
   }
 
-  public getFlightById(id: number): Observable<Flight> {
-    return this.httpService.get<Flight>(`http://www.angular.at/api/flight/${id}`)
-      .pipe(
-        map(res => res.data),
-        catchError((error: AxiosError) => throwError(new HttpException('', error.response.status)))
-      );
+  public async getFlightById(id: number): Promise<Flight> {
+    const flight = await this.flightModel.findOne({id}).exec();
+    if (flight) {
+      return flight;
+    }
+    throw new NotFoundException();
   }
 
   public createFlight(flight: Flight): Promise<Flight> {
