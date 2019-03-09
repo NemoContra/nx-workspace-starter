@@ -43,6 +43,7 @@
     "@angular/router": "^11.2.7",
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
+    "@nestjs/microservices": "^5.7.4",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.8.0",
     "@nestjs/mongoose": "^5.2.2",
