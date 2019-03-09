@@ -3,6 +3,7 @@ import { Controller, Get, INestApplication, MiddlewareConsumer, Module, NestModu
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { UserMiddleware } from '../middleware/user.middleware';
+import { AuthenticationService } from './authentication.service';
 
 describe('AuthenticationGuard', () => {
   let app: INestApplication;
@@ -20,29 +21,29 @@ describe('AuthenticationGuard', () => {
   it('should return HTTP-Status 200', () => {
     return request(app.getHttpServer())
       .get('/test')
-      .set('authorization', 'Bearer jwt123456token')
+      .set('authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTU0MDAwMDAwfQ.1aXg5qBdE0riDCNnY-0wVydW72MNKIQuVio7DLbVj7E')
       .expect(200)
       .expect('success!');
   });
 
-  it('should return HTTP-Status 403 for incorrect token', () => {
+  it('should return HTTP-Status 401 for incorrect token', () => {
     return request(app.getHttpServer())
       .get('/test')
       .set('authorization', 'Bearer test')
-      .expect(418)
+      .expect(401)
       .expect({
-        statusCode: 418,
-        message: 'I\'m a Teapot'
+        statusCode: 401,
+        error: 'Unauthorized'
       });
   });
 
-  it('should return HTTP-Status 403 if no header is set', () => {
+  it('should return HTTP-Status 401 if no header is set', () => {
     return request(app.getHttpServer())
       .get('/test')
-      .expect(418)
+      .expect(401)
       .expect({
-        statusCode: 418,
-        message: 'I\'m a Teapot'
+        statusCode: 401,
+        error: 'Unauthorized'
       });
   });
 });
@@ -58,7 +59,8 @@ class TestingController {
 }
 
 @Module({
-  controllers: [TestingController]
+  controllers: [TestingController],
+  providers: [AuthenticationService]
 })
 class MockModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {

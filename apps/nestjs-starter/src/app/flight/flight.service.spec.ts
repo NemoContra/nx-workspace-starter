@@ -1,18 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { FlightService } from './flight.service';
-import { HttpModule, HttpService } from '@nestjs/common';
-import { of, throwError } from 'rxjs';
+import { NotFoundException } from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
 import { getModelToken } from '@nestjs/mongoose';
 
 describe('FlightService', () => {
   let service: FlightService;
-  let httpService: HttpService;
   let mockFlightModel: MockFlightModel;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule],
       providers: [
         FlightService,
         {
@@ -22,7 +19,6 @@ describe('FlightService', () => {
       ]
     }).compile();
     service = module.get<FlightService>(FlightService);
-    httpService = module.get<HttpService>(HttpService);
     mockFlightModel = module.get(getModelToken('Flight'));
   });
 
@@ -87,8 +83,8 @@ describe('FlightService', () => {
     ]);
   });
 
-  it('should return correct flight for "getFlightById"', () => {
-    const mockData: Flight = {
+  it('should return correct flight for "getFlightById"', async () => {
+    const mockData = {
       id: 4,
       from: 'Hamburg',
       to: 'Graz',
@@ -96,20 +92,17 @@ describe('FlightService', () => {
       delayed: false
     };
 
-    spyOn(httpService, 'get').and.returnValue(of({ data: mockData }));
-
-    service.getFlightById(4).subscribe(data => expect(data).toEqual(mockData));
-    expect(httpService.get).toHaveBeenCalledWith('http://www.angular.at/api/flight/4');
+    MockFlightModel.mockFlights = [mockData];
+    expect(await service.getFlightById(4)).toEqual(mockData);
   });
 
-  it('should handle a HTTP-Error correctly for "getFlightById"', (done) => {
-    spyOn(httpService, 'get').and.returnValue(throwError({ response: { status: 400 } }));
-
-    service.getFlightById(4).subscribe(fail, error => {
-      expect(error.status).toEqual(400);
-      done();
-    });
-    expect(httpService.get).toHaveBeenCalledWith('http://www.angular.at/api/flight/4');
+  it('should handle a HTTP-Error correctly for "getFlightById"', () => {
+    MockFlightModel.mockFlights = [];
+    service.getFlightById(6)
+      .then(fail)
+      .catch(err => {
+        expect(err).toEqual(new NotFoundException());
+      });
   });
 
   it('should return correct flight for "createFlight"', async () => {
@@ -145,6 +138,10 @@ class MockFlightModel {
 
   static find = () => {
     return { exec: () => Promise.resolve(MockFlightModel.mockFlights) };
+  };
+
+  static findOne = () => {
+    return { exec: () => Promise.resolve(MockFlightModel.mockFlights[0]) };
   };
 
   static deleteOne = () => {

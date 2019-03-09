@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { FlightController } from './flight.controller';
 import {
-  HttpModule,
   INestApplication,
   Logger,
   MiddlewareConsumer,
@@ -11,18 +10,19 @@ import {
 } from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { UserMiddleware } from '../middleware/user.middleware';
-import { CoreModule } from '../core/core.module';
 import { Flight } from '@flight-app/shared';
 import { getModelToken } from '@nestjs/mongoose';
+import { AuthenticationModule } from '../authentication/authentication.module';
 
 describe('Flight Controller', () => {
+  const MOCK_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTU0MDAwMDAwfQ.1aXg5qBdE0riDCNnY-0wVydW72MNKIQuVio7DLbVj7E';
   let app: INestApplication;
   let module: TestingModule;
   let flightService: FlightService;
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [MockModule]
+      imports: [MockModule, AuthenticationModule]
     }).compile();
 
     flightService = module.get<FlightService>(FlightService);
@@ -34,7 +34,7 @@ describe('Flight Controller', () => {
     spyOn(flightService, 'searchFlights').and.returnValue(Promise.resolve([]));
     return request(app.getHttpServer())
       .get('/flight')
-      .set('authorization', 'Bearer jwt123456token')
+      .set('authorization', 'Bearer ' + MOCK_TOKEN)
       .expect(200)
       .expect([]);
   });
@@ -66,7 +66,7 @@ describe('Flight Controller', () => {
     spyOn(flightService, 'searchFlights').and.returnValue(Promise.resolve(mockFlights));
     return request(app.getHttpServer())
       .get('/flight?from=Hamburg&to=Graz')
-      .set('authorization', 'Bearer jwt123456token')
+      .set('authorization', 'Bearer ' + MOCK_TOKEN)
       .expect(200)
       .expect(mockFlights);
   });
@@ -82,7 +82,7 @@ describe('Flight Controller', () => {
 
     return request(app.getHttpServer())
       .get('/flight/3')
-      .set('authorization', 'Bearer jwt123456token')
+      .set('authorization', 'Bearer ' + MOCK_TOKEN)
       .expect(200)
       .expect({
         id: 3,
@@ -104,7 +104,7 @@ describe('Flight Controller', () => {
     spyOn(flightService, 'createFlight').and.returnValue(Promise.resolve(mockFlight));
     return request(app.getHttpServer())
       .post('/flight')
-      .set('authorization', 'Bearer jwt123456token')
+      .set('authorization', 'Bearer ' + MOCK_TOKEN)
       .send({
         from: 'Stuttgart',
         to: 'Hamburg',
@@ -119,7 +119,7 @@ describe('Flight Controller', () => {
   it('should return HTTP-Status 400 for an invalid Flight for POST "/flight"', () => {
     return request(app.getHttpServer())
       .post('/flight')
-      .set('authorization', 'Bearer jwt123456token')
+      .set('authorization', 'Bearer ' + MOCK_TOKEN)
       .send({
         from: 'Stuttgart',
         to: 1,
@@ -134,7 +134,7 @@ describe('Flight Controller', () => {
     spyOn(flightService, 'deleteFlight').and.returnValue(true);
     return request(app.getHttpServer())
       .delete('/flight/174')
-      .set('authorization', 'Bearer jwt123456token')
+      .set('authorization', 'Bearer ' + MOCK_TOKEN)
       .expect(200)
       .expect({});
   });
@@ -143,7 +143,7 @@ describe('Flight Controller', () => {
     spyOn(flightService, 'deleteFlight').and.returnValue(false);
     return request(app.getHttpServer())
       .delete('/flight/175')
-      .set('authorization', 'Bearer jwt123456token')
+      .set('authorization', 'Bearer ' + MOCK_TOKEN)
       .expect(404)
       .expect({ statusCode: 404, error: 'Not Found', message: 'Flight not found.' });
   });
@@ -151,8 +151,8 @@ describe('Flight Controller', () => {
   it('should return HTTP-Status 401 if no "Authorization" Header is set', () => {
     return request(app.getHttpServer())
       .get('/flight')
-      .expect(418)
-      .expect({ statusCode: 418, message: 'I\'m a Teapot' });
+      .expect(401)
+      .expect({ statusCode: 401, error: 'Unauthorized' });
   });
 
   afterAll(async () => {
@@ -161,7 +161,6 @@ describe('Flight Controller', () => {
 });
 
 @Module({
-  imports: [HttpModule],
   controllers: [FlightController],
   providers: [
     FlightService,

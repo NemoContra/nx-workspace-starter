@@ -1,17 +1,20 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { TeapotException } from '../exceptions/teapot.exception';
+import { AuthenticationService } from './authentication.service';
 
 @Injectable()
 export class AuthenticationGuard implements CanActivate {
+  constructor(private authenticationService: AuthenticationService) {
+  }
+
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
     const authorizationHeader = request.headers['authorization'];
-    if (authorizationHeader && authorizationHeader.indexOf('Bearer jwt123456token') !== -1 && request.user && request.user.role === 'admin') {
+    if (authorizationHeader && this.authenticationService.isLoggedIn(authorizationHeader.split(' ')[1])) {
       return true;
     }
-    throw new TeapotException();
+    throw new UnauthorizedException();
   }
 }
