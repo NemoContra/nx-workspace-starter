@@ -159,7 +159,7 @@ describe('Flight Controller', () => {
       .delete('/flight/175')
       .set('authorization', 'Bearer jwt123456token')
       .expect(404)
-      .expect({ message: 'Custom message!' });
+      .expect({ statusCode: 404, error: 'Not Found', message: 'Flight not found.' });
   });
 
   it('should return HTTP-Status 401 if no "Authorization" Header is set', () => {
