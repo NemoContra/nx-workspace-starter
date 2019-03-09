@@ -23,7 +23,7 @@ describe('Flight Controller', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      modules: [MockModule, CoreModule, AuthenticationModule]
+      imports: [MockModule, CoreModule, AuthenticationModule]
     }).compile();
 
     flightService = module.get<FlightService>(FlightService);

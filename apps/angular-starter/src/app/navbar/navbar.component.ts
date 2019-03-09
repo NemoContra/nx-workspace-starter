@@ -3,22 +3,24 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
-    selector: 'navbar-cmp',
-    templateUrl: 'navbar.component.html'
+  selector: 'navbar-cmp',
+  templateUrl: 'navbar.component.html'
 })
 export class NavbarComponent {
 
-    private sidebarVisible: boolean = false;
+  constructor(@Inject(DOCUMENT) private document: Document) { }
 
-    sidebarToggle(){
-        var body = document.getElementsByTagName('body')[0];
+  private sidebarVisible = false;
 
-        if(this.sidebarVisible == false){
-            body.classList.add('nav-open');
-            this.sidebarVisible = true;
-        } else {
-            this.sidebarVisible = false;
-            body.classList.remove('nav-open');
-        }
+  sidebarToggle() {
+    const body = this.document.body;
+
+    if (this.sidebarVisible === false) {
+      body.classList.add('nav-open');
+      this.sidebarVisible = true;
+    } else {
+      this.sidebarVisible = false;
+      body.classList.remove('nav-open');
     }
+  }
 }
