@@ -10,7 +10,7 @@ describe('AuthenticationGuard', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      modules: [MockModule]
+      imports: [MockModule]
     }).compile();
 
     app = module.createNestApplication();
@@ -58,10 +58,11 @@ class TestingController {
 }
 
 @Module({
-  controllers: [TestingController]
+  controllers: [TestingController],
+  providers: [{provide: 'USER', useValue: {role: 'admin'}}]
 })
 class MockModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
-    consumer.apply(UserMiddleware).with({role: 'admin'}).forRoutes(TestingController)
+    consumer.apply(UserMiddleware).forRoutes(TestingController)
   }
 }
