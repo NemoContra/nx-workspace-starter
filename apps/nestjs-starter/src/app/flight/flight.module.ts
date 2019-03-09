@@ -5,7 +5,7 @@ import { UserMiddleware } from '../middleware/user.middleware';
 
 @Module({
   controllers: [FlightController],
-  providers: [FlightService, Logger]
+  providers: [FlightService, Logger, { provide: 'DELAY_TIME', useValue: 2000 }]
 })
 export class FlightModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {

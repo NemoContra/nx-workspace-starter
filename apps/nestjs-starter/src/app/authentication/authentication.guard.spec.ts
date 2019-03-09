@@ -10,7 +10,7 @@ describe('AuthenticationGuard', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      modules: [MockModule]
+      imports: [MockModule]
     }).compile();
 
     app = module.createNestApplication();

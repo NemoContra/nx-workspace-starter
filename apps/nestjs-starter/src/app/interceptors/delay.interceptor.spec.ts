@@ -10,7 +10,7 @@ describe('DelayInterceptor', () => {
   beforeAll(async () => {
     jest.useFakeTimers();
     module = await Test.createTestingModule({
-      providers: [DelayInterceptor]
+      providers: [DelayInterceptor, { provide: 'DELAY_TIME', useValue: 2000 }]
     }).compile();
     delayInterceptor = module.get<DelayInterceptor>(DelayInterceptor);
   });

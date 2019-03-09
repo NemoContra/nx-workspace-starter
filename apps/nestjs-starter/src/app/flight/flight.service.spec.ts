@@ -10,7 +10,7 @@ describe('FlightService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      modules: [HttpModule],
+      imports: [HttpModule],
       providers: [FlightService]
     }).compile();
     service = module.get<FlightService>(FlightService);
@@ -102,3 +102,27 @@ describe('FlightService', () => {
     expect(service.deleteFlight(190)).toEqual(false);
   });
 });
+
+class MockFlightModel {
+  static mockFlights = [];
+  static deletedFlights = 0;
+
+  static find = () => {
+    return { exec: () => Promise.resolve(MockFlightModel.mockFlights) };
+  };
+
+  static deleteOne = () => {
+    return { exec: () => Promise.resolve({n: MockFlightModel.deletedFlights}) };
+  };
+
+  save() {
+    return Promise.resolve({
+      id: 174,
+      from: 'Hamburg',
+      to: 'Graz',
+      date: '2019-02-22T09:07:54.1624336+00:00',
+      delayed: false,
+      _id: '5c82d9d5e8684023f23e9c4c'
+    });
+  }
+}
