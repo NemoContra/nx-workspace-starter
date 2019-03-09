@@ -21,8 +21,7 @@ describe('Flight Controller', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      modules: [MockModule, CoreModule],
-      providers: [FlightService, Logger]
+      imports: [MockModule, CoreModule]
     }).compile();
 
     flightService = module.get<FlightService>(FlightService);
@@ -182,12 +181,13 @@ describe('Flight Controller', () => {
     {
       provide: getModelToken('Flight'),
       useValue: ''
-    }
+    },
+    { provide: 'USER', useValue: { role: 'admin' } }
   ]
 })
 class MockModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
-    consumer.apply(UserMiddleware).with({ role: 'admin' }).forRoutes(FlightController);
+    consumer.apply(UserMiddleware).forRoutes(FlightController);
   }
 }
 

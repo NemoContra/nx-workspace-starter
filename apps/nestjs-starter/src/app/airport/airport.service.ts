@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Client, ClientProxy, Transport } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
 import { from, Observable } from 'rxjs';
 import { switchMapTo } from 'rxjs/operators';
+import { Inject } from '@nestjs/common';
 
 @Injectable()
 export class AirportService {
-  @Client({
-    transport: Transport.TCP,
-    options: {
-      port: 4000
-    }
-  })
-  private client: ClientProxy;
+
+  constructor(@Inject('CLIENT') private client: ClientProxy) {
+  }
 
   public getAirports(): Observable<string[]> {
     return from(this.client.connect()).pipe(
