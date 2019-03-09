@@ -1,26 +1,36 @@
-import { HttpException, HttpService, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpService,
+  Injectable,
+  NotFoundException
+} from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
 import flights from '../../../mock-data/flights.json';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AxiosError } from 'axios';
+import { InjectModel } from '@nestjs/mongoose';
+import { FlightDocument } from './flight.schema';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class FlightService {
   private flights: Flight[] = flights;
 
-  constructor(private httpService: HttpService) {
+  constructor(@InjectModel('Flight') private flightModel: Model<FlightDocument>,
+              private httpService: HttpService) {
   }
 
-  public searchFlights(from: string, to: string, fromDate?: Date, toDate?: Date): Flight[] {
-    let filteredFlights = this.flights;
+  public searchFlights(from: string, to: string, fromDate?: string, toDate?: string): Promise<Flight[]> {
+    let query: any = { from, to };
+
     if (fromDate) {
-      filteredFlights = filteredFlights.filter(flight => new Date(flight.date) >= fromDate);
+      query = {...query, date: {...query.date, $gte: fromDate}}
     }
     if (toDate) {
-      filteredFlights = filteredFlights.filter(flight => new Date(flight.date) <= toDate);
+      query = {...query, date: {...query.date, $lte: toDate}}
     }
-    return filteredFlights.filter(flight => flight.from === from && flight.to === to);
+    return this.flightModel.find(query).exec();
   }
 
   public getFlightById(id: number): Observable<Flight> {
@@ -31,21 +41,21 @@ export class FlightService {
       );
   }
 
-  public createFlight(flight: Flight): Flight {
-    const newFlight: Flight = {
-      ...flight,
-      id: this.flights.length + 1
-    };
-    this.flights = [
-      ...this.flights,
-      newFlight
-    ];
-    return newFlight;
+  public createFlight(flight: Flight): Promise<Flight> {
+    const newFlight = new this.flightModel(flight);
+    return newFlight.save();
   }
 
-  public deleteFlight(id: number): boolean {
-    const length = this.flights.length;
-    this.flights = this.flights.filter(flight => flight.id !== +id);
-    return length !== this.flights.length
+  public async updateFlight(flight: Flight): Promise<Flight> {
+    const result = await this.flightModel.updateOne({id: flight.id}, flight).exec();
+    if (result.n === 1) {
+      return flight;
+    }
+    throw new NotFoundException();
+  }
+
+  public async deleteFlight(id: number): Promise<boolean> {
+    const deleted = await this.flightModel.deleteOne({ id }).exec();
+    return deleted.n === 1;
   }
 }
