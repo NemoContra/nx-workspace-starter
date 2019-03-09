@@ -19,7 +19,6 @@ import { AuthenticationGuard } from '../authentication/authentication.guard';
 import { DelayInterceptor } from '../interceptors/delay.interceptor';
 import { LoggerInterceptor } from '../interceptors/logger.interceptor';
 import { Observable } from 'rxjs';
-import { Observable } from 'rxjs';
 
 @Controller('flight')
 @UseGuards(AuthenticationGuard)
