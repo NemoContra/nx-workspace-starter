@@ -47,6 +47,7 @@
     "@nestjs/mongoose": "^5.2.2",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/swagger": "^4.8.0",
+    "@nestjs/microservices": "^5.7.4",
     "@nestjs/mongoose": "^5.2.2",
     "@ngrx/effects": "11.0.1",
     "@ngrx/router-store": "11.0.1",

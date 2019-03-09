@@ -176,6 +176,7 @@
               "apps/angular-starter-e2e/**/*.ts",
               "apps/angular-starter-e2e/**/*.html"
 
+
             ]
           }
         }
@@ -206,6 +207,65 @@
         }
       },
       "schematics": {}
+    },
+    "airport": {
+      "root": "apps/airport",
+      "sourceRoot": "apps/airport/src",
+      "projectType": "application",
+      "prefix": "airport",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/builders:node-build",
+          "options": {
+            "outputPath": "dist/apps/airport",
+            "main": "apps/airport/src/main.ts",
+            "tsConfig": "apps/airport/tsconfig.app.json",
+            "assets": [
+              "apps/airport/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/airport/src/environments/environment.ts",
+                  "with": "apps/airport/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/builders:node-execute",
+          "options": {
+            "buildTarget": "airport:build",
+            "inspect": false
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/airport/tsconfig.app.json",
+              "apps/airport/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/airport/jest.config.js",
+            "tsConfig": "apps/airport/tsconfig.spec.json"
+          }
+        }
+      }
     },
     "airport": {
       "root": "apps/airport",
