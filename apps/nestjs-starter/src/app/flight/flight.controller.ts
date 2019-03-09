@@ -38,14 +38,14 @@ export class FlightController {
   }
 
   @Get(':id')
-  getFlightById(@Param('id') id: string): Observable<Flight> {
+  getFlightById(@Param('id') id: string): Promise<Flight> {
     return this.flightService.getFlightById(+id);
   }
 
   @Post()
   @HttpCode(201)
   @UsePipes(ValidationPipe)
-  createFlight(@Body() flight: Flight): Promise<Flight> {
+  async createFlight(@Body() flight: Flight): Promise<Flight> {
     return this.flightService.createFlight(flight);
   }
 
