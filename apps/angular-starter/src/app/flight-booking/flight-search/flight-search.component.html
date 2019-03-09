@@ -1,0 +1,92 @@
+<div class="card">
+
+  <div class="header">
+    <h2 class="title">Flight Search</h2>
+  </div>
+
+  <div class="content">
+
+    <form>
+      <div class="form-group">
+        <label>From:</label>
+        <input [(ngModel)]="from" name="from" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>To:</label>
+        <input [(ngModel)]="to" name="to" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <button
+          [disabled]="!to || !from"
+          (click)="search()"
+          class="btn btn-default">Search
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>
+<!--<div class="card">
+
+  <table class="table table-contensed" *ngIf="flights.length > 0">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tr *ngFor="let f of flights"
+        [class.active]="f === selectedFlight">
+      <td>{{f.id}}</td>
+      <td>{{f.from | city:'short'}}</td>
+      <td>{{f.to | city:'long'}}</td>
+      <td>{{f.date | date:'dd.MM.yyyy HH:mm'}}</td>
+      <td>
+        <a (click)="select(f)">Select</a>
+      </td>
+    </tr>
+  </table>
+
+</div>-->
+<div class="row">
+  <div *ngFor="let f of flights"
+       class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <app-flight-card
+      [item]="f"
+      [(selected)]="basket[f.id]">
+    </app-flight-card>
+  </div>
+</div>
+<div *ngIf="selectedFlight">
+
+  <div>
+    {{ message }}
+  </div>
+
+  <div class="form-group">
+    <label>Id</label>
+    <input [(ngModel)]="selectedFlight.id" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label>From</label>
+    <input [(ngModel)]="selectedFlight.from" class="form-control">
+  </div>
+
+  <!-- Ergänzen Sie hier analog Felder für die weiteren Eigenschaften des Fluges -->
+
+  […]
+
+  <button (click)="save()" class="btn btn-default">Save</button>
+
+</div>
+<div class="card">
+  <div class="content">
+    <!-- {{title}} --> <!-- Alte Zeile  -->
+    <pre>{{ basket | json }}</pre> <!-- neue Zeile -->
+  </div>
+</div>
