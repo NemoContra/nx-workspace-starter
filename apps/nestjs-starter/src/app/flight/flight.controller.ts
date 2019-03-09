@@ -11,8 +11,7 @@ import {
   UseGuards,
   UseInterceptors,
   UsePipes,
-  ValidationPipe,
-  UseFilters
+  ValidationPipe
 } from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
 import { FlightService } from './flight.service';
@@ -20,13 +19,11 @@ import { AuthenticationGuard } from '../authentication/authentication.guard';
 import { DelayInterceptor } from '../interceptors/delay.interceptor';
 import { LoggerInterceptor } from '../interceptors/logger.interceptor';
 import { DatePipe } from '../pipes/date.pipe';
-import { CustomHttpFilter } from '../filters/custom-http.filter';
 import { Observable } from 'rxjs';
 
 @Controller('flight')
 @UseGuards(AuthenticationGuard)
 @UseInterceptors(LoggerInterceptor, DelayInterceptor)
-@UseFilters(CustomHttpFilter)
 export class FlightController {
 
   constructor(private flightService: FlightService) {

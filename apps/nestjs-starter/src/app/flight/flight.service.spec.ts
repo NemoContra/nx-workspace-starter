@@ -102,3 +102,22 @@ describe('FlightService', () => {
     expect(service.deleteFlight(190)).toEqual(false);
   });
 });
+
+class MockFlightModel {
+  static mockFlights = [];
+
+  static find = () => {
+    return { exec: () => Promise.resolve(MockFlightModel.mockFlights) };
+  };
+
+  save() {
+    return Promise.resolve({
+      id: 174,
+      from: 'Hamburg',
+      to: 'Graz',
+      date: '2019-02-22T09:07:54.1624336+00:00',
+      delayed: false,
+      _id: '5c82d9d5e8684023f23e9c4c'
+    });
+  }
+}
