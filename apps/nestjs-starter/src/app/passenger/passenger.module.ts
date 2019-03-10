@@ -1,4 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
+import { PassengerController } from './passenger.controller';
 
-@Module({})
+@Module({
+  controllers: [PassengerController],
+  providers: [{provide: Logger, useFactory: () => new Logger('PassengerModule')}]
+})
 export class PassengerModule {}

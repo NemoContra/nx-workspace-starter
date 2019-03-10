@@ -4,18 +4,18 @@ import { AppService } from './app.service';
 import { FlightModule } from './flight/flight.module';
 import { PassengerModule } from './passenger/passenger.module';
 import { CoreModule } from './core/core.module';
-import { MongooseModule } from '@nestjs/mongoose'
 import { AuthenticationModule } from './authentication/authentication.module';
+import { AirportModule } from './airport/airport.module';
 
 @Module({
   imports: [
     FlightModule,
     PassengerModule,
-    CoreModule,
     AuthenticationModule,
-    MongooseModule.forRoot('')
+    AirportModule,
+    CoreModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}
