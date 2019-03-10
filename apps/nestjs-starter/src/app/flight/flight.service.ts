@@ -1,15 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Flight } from '@flight-app/shared';
 import { InjectModel } from '@nestjs/mongoose';
 import { FlightDocument } from './flight.schema';
 import { Model } from 'mongoose';
+import { FlightServer } from './flight-server.model';
 
 @Injectable()
 export class FlightService {
   constructor(@InjectModel('Flight') private readonly flightModel: Model<FlightDocument>) {
   }
 
-  public searchFlights(from: string, to: string, fromDate?: string, toDate?: string): Promise<Flight[]> {
+  public searchFlights(from: string, to: string, fromDate?: string, toDate?: string): Promise<FlightServer[]> {
     let query: any = { from, to };
 
     if (fromDate) {
@@ -21,7 +21,7 @@ export class FlightService {
     return this.flightModel.find(query).exec();
   }
 
-  public async getFlightById(id: number): Promise<Flight> {
+  public async getFlightById(id: number): Promise<FlightServer> {
     const flight = await this.flightModel.findOne({id}).exec();
     if (flight) {
       return flight;
@@ -29,16 +29,16 @@ export class FlightService {
     throw new NotFoundException();
   }
 
-  public async createFlight(flight: Flight): Promise<Flight> {
+  public async createFlight(flight: FlightServer): Promise<FlightServer> {
     const newFlight = new this.flightModel(flight);
 
     // Extracting only public values of the flight to omit internal properties from MongoDB like _id and __v
-    const {id, from, to, date, delayed}: Flight = await newFlight.save();
+    const {id, from, to, date, delayed}: FlightServer = await newFlight.save();
 
     return {id, from, to, date, delayed};
   }
 
-  public async updateFlight(flight: Flight): Promise<Flight> {
+  public async updateFlight(flight: FlightServer): Promise<FlightServer> {
     const result = await this.flightModel.updateOne({id: flight.id}, flight).exec();
     if (result.n === 1) {
       return flight;
