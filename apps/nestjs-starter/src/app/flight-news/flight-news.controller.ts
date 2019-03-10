@@ -1,6 +1,12 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { FlightNewsService } from './flight-news.service';
 import { FlightNewsGateway } from './flight-news.gateway';
+import { IsString } from 'class-validator';
+
+class FlightNews {
+  @IsString()
+  news: string;
+}
 
 @Controller('news')
 export class FlightNewsController {
@@ -10,8 +16,9 @@ export class FlightNewsController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  postFlightNews(@Body('news') flightNews: string): void {
-    this.flightNewsService.setFlightNews(flightNews);
+  @UsePipes(ValidationPipe)
+  postFlightNews(@Body() {news}: FlightNews): void {
+    this.flightNewsService.setFlightNews(news);
     this.flightNewsGateway.pushLatestFlightNews();
   }
 }

@@ -33,7 +33,7 @@ describe('AuthenticationGuard', () => {
       .expect(401)
       .expect({
         statusCode: 401,
-        error: 'Unauthorized'
+        message: 'Unauthorized'
       });
   });
 
@@ -43,7 +43,7 @@ describe('AuthenticationGuard', () => {
       .expect(401)
       .expect({
         statusCode: 401,
-        error: 'Unauthorized'
+        message: 'Unauthorized'
       });
   });
 });
@@ -60,10 +60,10 @@ class TestingController {
 
 @Module({
   controllers: [TestingController],
-  providers: [AuthenticationService]
+  providers: [AuthenticationService, {provide: 'USER', useValue: {role: 'admin'}}]
 })
 class MockModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
-    consumer.apply(UserMiddleware).with({role: 'admin'}).forRoutes(TestingController)
+    consumer.apply(UserMiddleware).forRoutes(TestingController)
   }
 }

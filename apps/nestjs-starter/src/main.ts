@@ -11,16 +11,18 @@ import { Logger } from '@nestjs/common';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api');
+
   const options = new DocumentBuilder()
     .setTitle('Flights example')
     .setDescription('The flight API description')
     .setVersion('1.0')
     .addTag('flights')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api/docs', app, document);
 
-  app.setGlobalPrefix('api');
   await app.listen(3333, () => {
     app.get(Logger).log('Listening at http://localhost:3333');
   });
