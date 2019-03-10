@@ -1,0 +1,9 @@
+<p>Login</p>
+<div *ngIf="!isLoggedIn">
+  Username: <input [(ngModel)]="username" class="form-control">
+  Password: <input [(ngModel)]="password" type="password" class="form-control">
+  <button (click)="login()" class="btn btn-default">Login</button>
+</div>
+<button *ngIf="isLoggedIn" (click)="logout()" class="btn btn-default">Logout</button>
+
+{{loginresult}}
