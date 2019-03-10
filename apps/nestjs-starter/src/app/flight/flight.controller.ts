@@ -1,32 +1,32 @@
 import {
-  Controller,
-  Get,
-  Query,
-  Post,
   Body,
-  Param,
+  CacheInterceptor,
+  Controller,
   Delete,
+  Get,
   HttpCode,
   NotFoundException,
+  Param,
+  Post,
+  Put,
+  Query,
   UseGuards,
   UseInterceptors,
   UsePipes,
-  ValidationPipe, Put
+  ValidationPipe
 } from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
 import { FlightService } from './flight.service';
 import { AuthenticationGuard } from '../authentication/authentication.guard';
 import { DelayInterceptor } from '../interceptors/delay.interceptor';
 import { LoggerInterceptor } from '../interceptors/logger.interceptor';
-import { Observable } from 'rxjs';
 
 @Controller('flight')
 @UseGuards(AuthenticationGuard)
 @UseInterceptors(LoggerInterceptor, DelayInterceptor)
 export class FlightController {
 
-  constructor(private flightService: FlightService) {
-  }
+  constructor(private readonly flightService: FlightService) { }
 
   @Get()
   getFlights(
