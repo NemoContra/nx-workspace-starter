@@ -14,4 +14,3 @@ export abstract class AbstractFlightService {
 
   abstract save(flight: Flight): Observable<Flight>;
 }
-
