@@ -96,12 +96,13 @@ describe('FlightService', () => {
     expect(await service.getFlightById(4)).toEqual(mockData);
   });
 
-  it('should handle a HTTP-Error correctly for "getFlightById"', () => {
+  it('should handle a HTTP-Error correctly for "getFlightById"', (done) => {
     MockFlightModel.mockFlights = [];
     service.getFlightById(6)
       .then(fail)
       .catch(err => {
-        expect(err).toEqual(new NotFoundException());
+        expect(JSON.stringify(err)).toEqual(JSON.stringify(new NotFoundException()));
+        done();
       });
   });
 
@@ -116,8 +117,7 @@ describe('FlightService', () => {
       from: 'Hamburg',
       to: 'Graz',
       date: '2019-02-22T09:07:54.1624336+00:00',
-      delayed: false,
-      _id: '5c82d9d5e8684023f23e9c4c'
+      delayed: false
     });
   });
 
