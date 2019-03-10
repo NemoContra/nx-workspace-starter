@@ -127,7 +127,7 @@ describe('Flight Controller', () => {
       .expect(401)
       .expect({
         statusCode: 401,
-        error: 'Unauthorized'
+        message: 'Unauthorized'
       });
   });
 
