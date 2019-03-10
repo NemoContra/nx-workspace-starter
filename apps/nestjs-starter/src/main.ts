@@ -19,6 +19,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api/docs', app, document);
 
+  app.setGlobalPrefix('api');
   await app.listen(3333, () => {
     console.log('Listening at http://localhost:3333');
   });
