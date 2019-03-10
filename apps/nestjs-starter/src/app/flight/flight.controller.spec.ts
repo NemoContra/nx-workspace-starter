@@ -1,13 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { FlightController } from './flight.controller';
-import {
-  INestApplication,
-  Logger,
-  MiddlewareConsumer,
-  Module,
-  NestModule
-} from '@nestjs/common';
+import { INestApplication, Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { UserMiddleware } from '../middleware/user.middleware';
 import { Flight } from '@flight-app/shared';
@@ -169,11 +163,12 @@ describe('Flight Controller', () => {
       provide: getModelToken('Flight'),
       useValue: ''
     }
+    , {provide: 'USER', useValue: {role: 'admin'}}
   ]
 })
 class MockModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
-    consumer.apply(UserMiddleware).with({ role: 'admin' }).forRoutes(FlightController);
+    consumer.apply(UserMiddleware).forRoutes(FlightController)
   }
 }
 
