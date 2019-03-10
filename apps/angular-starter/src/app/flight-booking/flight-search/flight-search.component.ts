@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Flight } from '@flight-app/shared';
 import { FlightService } from './flight.service';
+import { Observable } from 'rxjs';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'app-flight-search',
@@ -14,12 +16,14 @@ export class FlightSearchComponent implements OnInit {
   message: string;
   searchError = '';
 
+  flightNews$: Observable<string>;
+
   basket: object = {   // <-- Neue Eigenschaft
     '3': true,
     '5': true
   };
 
-  constructor(private flightService: FlightService) {
+  constructor(private flightService: FlightService, private socket: Socket) {
   }
 
   ngOnInit(): void {
