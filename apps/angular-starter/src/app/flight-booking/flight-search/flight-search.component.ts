@@ -12,6 +12,7 @@ export class FlightSearchComponent implements OnInit {
   flights: Array<Flight> = [];
   selectedFlight: Flight;
   message: string;
+  searchError = '';
 
   basket: object = {   // <-- Neue Eigenschaft
     '3': true,
@@ -34,9 +35,13 @@ export class FlightSearchComponent implements OnInit {
       .subscribe(
         (flights) => {
           this.flights = flights;
+          this.searchError = '';
         },
         (errResp) => {
           console.error('Error loading flights', errResp);
+          if (errResp.status === 401) {
+            this.searchError = 'Sie müssen sich zuerst einloggen!';
+          }
         }
       );
   }

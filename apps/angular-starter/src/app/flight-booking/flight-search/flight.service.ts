@@ -10,7 +10,7 @@ export class FlightService implements AbstractFlightService {
   }
 
   find(from: string, to: string): Observable<Flight[]> {
-    const url = 'http://www.angular.at/api/flight';
+    const url = 'api/flight';
 
     const params = new HttpParams()
       .set('from', from)
@@ -20,16 +20,14 @@ export class FlightService implements AbstractFlightService {
   }
 
   findById(id: string): Observable<Flight> {
-    const url = 'http://www.angular.at/api/flight';
-    const params = new HttpParams()
-      .set('id', id);
-    return this.http.get<Flight>(url, {params});
+    const url = 'api/flight/';
+    return this.http.get<Flight>(url + id);
   }
 
   save(flight: Flight): Observable<Flight> {
-    const url = 'http://www.angular.at/api/flight';
+    const url = 'api/flight';
 
-    return this.http.post<Flight>(url, flight);
+    return this.http.put<Flight>(url, flight);
   }
 
 }
