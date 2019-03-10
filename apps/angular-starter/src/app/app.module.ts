@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { APP_ROUTES } from './app.routes';
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import { AuthenticationComponent } from './authentication/authentication.component';
+import { SocketIoModule } from 'ngx-socket-io';
 
 @NgModule({
   imports: [
@@ -19,7 +20,13 @@ import { AuthenticationComponent } from './authentication/authentication.compone
     FormsModule,
     RouterModule.forRoot(APP_ROUTES, { useHash: true }),
     HttpClientModule,
-    FlightBookingModule
+    FlightBookingModule,
+    SocketIoModule.forRoot({
+      url: '/',
+      options: {
+        transports: ['websocket']
+      }
+    })
   ],
   declarations: [
     AppComponent,
