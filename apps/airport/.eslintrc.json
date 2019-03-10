@@ -10,9 +10,9 @@
       ],
       "parserOptions": {
         "project": [
-          "apps/angular-starter/tsconfig.app.json",
-          "apps/angular-starter/tsconfig.spec.json",
-          "apps/angular-starter/e2e/tsconfig.json"
+          "apps/airport/tsconfig.app.json",
+          "apps/airport/tsconfig.spec.json",
+          "apps/airport/e2e/tsconfig.json"
         ],
         "createDefaultProgram": true
       },

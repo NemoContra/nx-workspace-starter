@@ -6,7 +6,6 @@ import { delay } from 'rxjs/operators';
 export class PassengerService {
   private passengers: string[] = [
     'Max Mustermann',
-    'Pablo Lellinger',
     'Paul Palme',
     'Fridolin Flieger'
   ];

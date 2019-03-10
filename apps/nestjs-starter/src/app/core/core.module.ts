@@ -23,6 +23,6 @@ const loggerProvider: Provider = {provide: Logger, useFactory: () => new Logger(
     })
   ],
   providers: [loggerProvider],
-  exports: [HttpModule, loggerProvider]
+  exports: [HttpModule, CacheModule, loggerProvider]
 })
 export class CoreModule {}
