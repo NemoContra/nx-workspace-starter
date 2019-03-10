@@ -1,7 +1,4 @@
-import {
-  Injectable,
-  NotFoundException
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Flight } from '@flight-app/shared';
 import { InjectModel } from '@nestjs/mongoose';
 import { FlightDocument } from './flight.schema';
@@ -9,7 +6,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class FlightService {
-  constructor(@InjectModel('Flight') private flightModel: Model<FlightDocument>) {
+  constructor(@InjectModel('Flight') private readonly flightModel: Model<FlightDocument>) {
   }
 
   public searchFlights(from: string, to: string, fromDate?: string, toDate?: string): Promise<Flight[]> {
@@ -32,9 +29,13 @@ export class FlightService {
     throw new NotFoundException();
   }
 
-  public createFlight(flight: Flight): Promise<Flight> {
+  public async createFlight(flight: Flight): Promise<Flight> {
     const newFlight = new this.flightModel(flight);
-    return newFlight.save();
+
+    // Extracting only public values of the flight to omit internal properties from MongoDB like _id and __v
+    const {id, from, to, date, delayed}: Flight = await newFlight.save();
+
+    return {id, from, to, date, delayed};
   }
 
   public async updateFlight(flight: Flight): Promise<Flight> {
