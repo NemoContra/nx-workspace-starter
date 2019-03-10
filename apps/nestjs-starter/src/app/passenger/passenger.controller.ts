@@ -1,18 +1,15 @@
 import { CacheInterceptor, Controller, Get, Logger, UseInterceptors } from '@nestjs/common';
+import { PassengerService } from './passenger.service';
+import { Observable } from 'rxjs';
 
 @Controller('passenger')
 export class PassengerController {
-  constructor(private readonly logger: Logger) { }
+  constructor(private readonly passengerService: PassengerService, private readonly logger: Logger) { }
 
   @Get()
   @UseInterceptors(CacheInterceptor)
-  public getPassengers(): string[] {
+  public getPassengers(): Observable<string[]> {
     this.logger.log('Resolving passengers');
-    return [
-      'Max Mustermann',
-      'Pablo Lellinger',
-      'Paul Palme',
-      'Fridolin Flieger'
-    ];
+    return this.passengerService.getPassengers();
   }
 }
