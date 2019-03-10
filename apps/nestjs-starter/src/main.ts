@@ -6,6 +6,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
+import { Logger } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,7 +22,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   await app.listen(3333, () => {
-    console.log('Listening at http://localhost:3333');
+    app.get(Logger).log('Listening at http://localhost:3333');
   });
 }
 
