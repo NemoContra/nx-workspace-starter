@@ -6,7 +6,7 @@ import { delay } from 'rxjs/operators';
 export class DelayInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, call$: Observable<any>): Observable<any> {
     return call$.pipe(
-      delay(2000)
+      delay(0)
     );
   }
 }
