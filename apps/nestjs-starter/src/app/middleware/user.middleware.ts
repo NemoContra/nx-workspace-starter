@@ -1,11 +1,12 @@
-import { Injectable, MiddlewareFunction, NestMiddleware } from '@nestjs/common';
+import { Inject, Injectable, NestMiddleware } from '@nestjs/common';
 
 @Injectable()
 export class UserMiddleware implements NestMiddleware {
-  resolve(user: object): MiddlewareFunction {
-    return (req, res, next) => {
-      req.user = user;
-      next();
-    };
+  constructor(@Inject('USER') private readonly user: string) {
+  }
+
+  use(req, res, next) {
+    req.user = this.user;
+    next();
   }
 }
