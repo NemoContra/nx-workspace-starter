@@ -102,6 +102,7 @@ describe('FlightService', () => {
       .then(fail)
       .catch(err => {
         expect(JSON.stringify(err)).toEqual(JSON.stringify(new NotFoundException()));
+        done();
       });
   });
 

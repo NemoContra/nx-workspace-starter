@@ -1,16 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { FlightController } from './flight.controller';
-import {
-  INestApplication,
-  Logger,
-  MiddlewareConsumer,
-  Module,
-  NestModule
-} from '@nestjs/common';
+import { INestApplication, Logger, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { FlightService } from './flight.service';
 import { UserMiddleware } from '../middleware/user.middleware';
-import { CoreModule } from '../core/core.module';
 import { Flight } from '@flight-app/shared';
 import { getModelToken } from '@nestjs/mongoose';
 import { AuthenticationModule } from '../authentication/authentication.module';
@@ -23,7 +16,7 @@ describe('Flight Controller', () => {
 
   beforeAll(async () => {
     module = await Test.createTestingModule({
-      imports: [MockModule, CoreModule, AuthenticationModule]
+      imports: [MockModule, AuthenticationModule]
     }).compile();
 
     flightService = module.get<FlightService>(FlightService);
