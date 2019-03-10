@@ -37,7 +37,7 @@
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "nestjs-starter:build",
-            "inspect": false
+            "inspect": true
           }
         },
         "lint": {
@@ -215,7 +215,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/builders:node-build",
+          "builder": "@nrwl/node:build",
           "options": {
             "outputPath": "dist/apps/airport",
             "main": "apps/airport/src/main.ts",
@@ -239,26 +239,23 @@
           }
         },
         "serve": {
-          "builder": "@nrwl/builders:node-execute",
+          "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "airport:build",
             "inspect": false
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/airport/tsconfig.app.json",
-              "apps/airport/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "apps/airport/**/*.ts",
+              "apps/airport/**/*.html"
             ]
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/airport/jest.config.js",
             "tsConfig": "apps/airport/tsconfig.spec.json"

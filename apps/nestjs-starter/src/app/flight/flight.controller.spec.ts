@@ -146,7 +146,7 @@ describe('Flight Controller', () => {
     return request(app.getHttpServer())
       .get('/flight')
       .expect(401)
-      .expect({ statusCode: 401, error: 'Unauthorized' });
+      .expect({ statusCode: 401, message: 'Unauthorized' });
   });
 
   afterAll(async () => {
@@ -162,13 +162,13 @@ describe('Flight Controller', () => {
     {
       provide: getModelToken('Flight'),
       useValue: ''
-    }
-    , {provide: 'USER', useValue: {role: 'admin'}}
+    },
+    { provide: 'USER', useValue: { role: 'admin' } }
   ]
 })
 class MockModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
-    consumer.apply(UserMiddleware).forRoutes(FlightController)
+    consumer.apply(UserMiddleware).forRoutes(FlightController);
   }
 }
 
