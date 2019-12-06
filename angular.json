@@ -11,7 +11,7 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/builders:node-build",
+          "builder": "@nrwl/node:build",
           "options": {
             "outputPath": "dist/apps/nestjs-starter",
             "main": "apps/nestjs-starter/src/main.ts",
@@ -32,7 +32,7 @@
           }
         },
         "serve": {
-          "builder": "@nrwl/builders:node-execute",
+          "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "nestjs-starter:build"
           }
@@ -48,7 +48,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/builders:jest",
+          "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/nestjs-starter/jest.config.js",
             "tsConfig": "apps/nestjs-starter/tsconfig.spec.json"
@@ -208,9 +208,21 @@
       "typescriptMismatch": false,
       "versionMismatch": false
     },
-    "defaultCollection": "@nrwl/schematics",
+    "defaultCollection": "@nrwl/angular",
     "packageManager": "npm"
   },
   "defaultProject": "angular-starter",
-  "schematics": {}
+  "schematics": {
+    "@nrwl/schematics:library": {
+      "unitTestRunner": "karma",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:application": {
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "protractor"
+    },
+    "@nrwl/schematics:node-application": {
+      "framework": "express"
+    }
+  }
 }
