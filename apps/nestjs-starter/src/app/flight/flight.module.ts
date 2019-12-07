@@ -4,6 +4,7 @@ import { FlightService } from './flight.service';
 import { UserMiddleware } from '../middleware/user.middleware';
 import { MongooseModule } from '@nestjs/mongoose';
 import { FlightSchema } from './flight.schema';
+import { FlightResolver } from './flight.resolver';
 
 const mockUser = {
   id: 42,
@@ -18,7 +19,8 @@ const mockUser = {
   providers: [
     FlightService, Logger,
     { provide: 'DELAY_TIME', useValue: 2000 }
-  , { provide: 'USER', useValue: mockUser }
+  , { provide: 'USER', useValue: mockUser },
+    FlightResolver
   ],
   imports: [MongooseModule.forFeature([{ name: 'Flight', schema: FlightSchema }])]
 })
