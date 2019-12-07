@@ -3,6 +3,14 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CreateFlight {
+  id: Int
+  from: String!
+  to: String!
+  date: String!
+  delayed: Boolean
+}
+
 type FlightObjectType {
   id: Int!
   from: String!
@@ -11,19 +19,20 @@ type FlightObjectType {
   delayed: Boolean
 }
 
-input MutateFlight {
-  id: Int
+type Mutation {
+  createFlight(flight: CreateFlight!): FlightObjectType!
+  updateFlight(flight: UpdateFlight!): FlightObjectType!
+}
+
+type Query {
+  flight(id: Int!): FlightObjectType!
+  flights(from: String!, to: String!, fromDate: String, toDate: String): [FlightObjectType!]!
+}
+
+input UpdateFlight {
+  id: Int!
   from: String!
   to: String!
   date: String!
   delayed: Boolean
-}
-
-type Mutation {
-  createFlight(flight: MutateFlight!): FlightObjectType!
-  updateFlight(flight: MutateFlight!): FlightObjectType!
-}
-
-type Query {
-  flight(id: Int, from: String = "", to: String = "", fromDate: String, toDate: String): FlightObjectType!
 }

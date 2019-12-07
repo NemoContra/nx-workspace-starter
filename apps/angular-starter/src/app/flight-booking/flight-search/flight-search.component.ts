@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Flight } from '@flight-app/shared';
-import { FlightService } from './flight.service';
 import { Observable } from 'rxjs';
 import { Socket } from 'ngx-socket-io';
+import { Apollo } from 'apollo-angular';
+import gql from 'graphql-tag';
+import { ApolloQueryResult } from 'apollo-client';
 
 @Component({
   selector: 'app-flight-search',
@@ -23,7 +25,7 @@ export class FlightSearchComponent implements OnInit {
     '5': true
   };
 
-  constructor(private flightService: FlightService, private socket: Socket) {
+  constructor(private apollo: Apollo, private socket: Socket) {
   }
 
   ngOnInit(): void {
@@ -41,20 +43,30 @@ export class FlightSearchComponent implements OnInit {
       return;
     }
 
-    this.flightService
-      .find(this.from, this.to)
-      .subscribe(
-        (flights) => {
-          this.flights = flights;
-          this.searchError = '';
-        },
-        (errResp) => {
-          console.error('Error loading flights', errResp);
-          if (errResp.status === 401) {
-            this.searchError = 'Sie müssen sich zuerst einloggen!';
+    this.apollo.query({
+      query: gql`
+          {
+            flights(from: "${this.from}", to: "${this.to}") {
+              id
+              from
+              to
+              date
+              delayed
+            }
           }
+        `
+    }).subscribe(
+      (result: ApolloQueryResult<{ flights: Flight[] }>) => {
+        this.flights = result.data.flights;
+        this.searchError = '';
+      },
+      (errResp) => {
+        console.error('Error loading flights', errResp);
+        if (errResp.status === 401) {
+          this.searchError = 'Sie müssen sich zuerst einloggen!';
         }
-      );
+      }
+    );
   }
 
   select(f: Flight): void {
@@ -63,17 +75,24 @@ export class FlightSearchComponent implements OnInit {
 
   save(): void {
 
-    this.flightService
-      .save(this.selectedFlight)
-      .subscribe(
-        flight => {
-          this.selectedFlight = flight;
-          this.message = 'Erfolgreich gespeichert!';
-        },
-        errResponse => {
-          console.error('Fehler beim Speichern', errResponse);
-          this.message = 'Fehler beim Speichern: ';
-        }
-      );
+    this.apollo.mutate({
+      mutation: gql`
+        mutation updateFlight {
+          updateFlight(flight: {
+            id: ${this.selectedFlight.id}
+            from: "${this.selectedFlight.from}"
+            to: "${this.selectedFlight.to}"
+            date: "${this.selectedFlight.date}"
+          }) {
+            id
+            from
+            to
+            date
+            delayed
+          }
+      }
+    `
+    }).subscribe();
+
   }
 }

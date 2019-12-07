@@ -4,6 +4,7 @@ import * as redisStore from 'cache-manager-redis-store';
 import { GraphQLModule } from '@nestjs/graphql';
 import { environment } from '../../environments/environment';
 
+// TODO: DELETE ME BEFORE YOU PUSH TO GIT
 const mongodbUri = '';
 const redisUri = '';
 

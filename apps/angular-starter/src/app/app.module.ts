@@ -13,6 +13,7 @@ import { APP_ROUTES } from './app.routes';
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { SocketIoModule } from 'ngx-socket-io';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { SocketIoModule } from 'ngx-socket-io';
     RouterModule.forRoot(APP_ROUTES, { useHash: true }),
     HttpClientModule,
     FlightBookingModule,
+    GraphQLModule,
     SocketIoModule.forRoot({
       url: '/',
       options: {

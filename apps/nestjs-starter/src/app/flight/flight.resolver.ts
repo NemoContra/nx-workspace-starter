@@ -6,25 +6,22 @@ import { Flight } from '@flight-app/shared';
 
 @ArgsType()
 export class FlightSearchArgs implements Partial<Flight> {
-  @Field(() => Int, {nullable: true})
-  id?: number;
-
-  @Field({nullable: true, defaultValue: ''})
+  @Field()
   from: string;
 
-  @Field({nullable: true, defaultValue: ''})
+  @Field()
   to: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   fromDate?: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   toDate?: string;
 }
 
 @InputType()
-export class MutateFlight implements Flight {
-  @Field(() => Int, {nullable: true})
+export class CreateFlight implements Flight {
+  @Field(() => Int, { nullable: true })
   id?: number;
 
   @Field()
@@ -36,7 +33,25 @@ export class MutateFlight implements Flight {
   @Field()
   date: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
+  delayed?: boolean;
+}
+
+@InputType()
+export class UpdateFlight implements Flight {
+  @Field(() => Int)
+  id: number;
+
+  @Field()
+  from: string;
+
+  @Field()
+  to: string;
+
+  @Field()
+  date: string;
+
+  @Field({ nullable: true })
   delayed?: boolean;
 }
 
@@ -46,19 +61,24 @@ export class FlightResolver {
   }
 
   @Query(() => FlightObjectType, { name: 'flight' })
-  async getFlight(
-    @Args({type: () => FlightSearchArgs}) {id, from, to, fromDate, toDate}: FlightSearchArgs
-  ): Promise<Flight | Flight[]> {
-    return await id ? this.flightService.getFlightById(id) : this.flightService.searchFlights(from, to, fromDate, toDate);
+  async getFlight(@Args({name: 'id',  type: () => Int }) id: number): Promise<Flight> {
+    return await this.flightService.getFlightById(id);
+  }
+
+  @Query(() => [FlightObjectType], { name: 'flights' })
+  async searchFlights(
+    @Args({ type: () => FlightSearchArgs }) { from, to, fromDate, toDate }: FlightSearchArgs
+  ): Promise<Flight[]> {
+    return await this.flightService.searchFlights(from, to, fromDate, toDate);
   }
 
   @Mutation(() => FlightObjectType)
-  async createFlight(@Args({name: 'flight', type: () => MutateFlight}) flight: MutateFlight): Promise<Flight> {
+  async createFlight(@Args({ name: 'flight', type: () => CreateFlight }) flight: CreateFlight): Promise<Flight> {
     return await this.flightService.createFlight(flight);
   }
 
   @Mutation(() => FlightObjectType)
-  async updateFlight(@Args({name: 'flight', type: () => MutateFlight}) flight: MutateFlight): Promise<Flight> {
+  async updateFlight(@Args({ name: 'flight', type: () => UpdateFlight }) flight: UpdateFlight): Promise<Flight> {
     return await this.flightService.updateFlight(flight);
   }
 }

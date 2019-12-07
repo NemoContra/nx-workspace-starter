@@ -10,10 +10,10 @@ export class AirportService implements OnModuleInit {
   constructor(private readonly logger: Logger) { }
 
   async onModuleInit(): Promise<void> {
-    await this.client.connect();
+    // await this.client.connect();
     this.logger.log('Successfully connected to Airport Microservice');
   }
-  
+
   public getAirports(): Observable<string[]> {
     return this.client.send<string[]>({cmd: 'airports'}, 'airports');
   }

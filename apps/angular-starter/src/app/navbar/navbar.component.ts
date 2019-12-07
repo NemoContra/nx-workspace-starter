@@ -1,6 +1,6 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, ViewChild, ElementRef, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { DOCUMENT, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'navbar-cmp',

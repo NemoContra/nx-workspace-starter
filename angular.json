@@ -37,7 +37,7 @@
           "builder": "@nrwl/node:execute",
           "options": {
             "buildTarget": "nestjs-starter:build",
-            "inspect": false
+            "inspect": true
           }
         },
         "lint": {
