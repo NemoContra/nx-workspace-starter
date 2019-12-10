@@ -15,17 +15,17 @@ import {
   ValidationPipe
 } from '@nestjs/common';
 import { FlightService } from './flight.service';
-import { AuthenticationGuard } from '../authentication/authentication.guard';
 import { DelayInterceptor } from '../interceptors/delay.interceptor';
 import { LoggerInterceptor } from '../interceptors/logger.interceptor';
 import { ApiBearerAuth, ApiOkResponse, ApiQuery, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { FlightServer } from './flight-server.model';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('flights')
 @ApiBearerAuth()
 @ApiUnauthorizedResponse({description: 'Returns HTTP-Status 401 if no Bearer token is provided'})
 @Controller('flight')
-@UseGuards(AuthenticationGuard)
+@UseGuards(AuthGuard())
 @UseInterceptors(LoggerInterceptor, DelayInterceptor)
 export class FlightController {
 

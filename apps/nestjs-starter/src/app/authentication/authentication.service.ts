@@ -1,17 +1,48 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { User, UserService } from '../user/user.service';
+import { RedisService } from '../redis/redis.service';
+import { JwtService } from '@nestjs/jwt';
+import { compareSync } from 'bcryptjs';
 
 @Injectable()
 export class AuthenticationService {
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTU0MDAwMDAwfQ.1aXg5qBdE0riDCNnY-0wVydW72MNKIQuVio7DLbVj7E';
 
-  public login(username: string, password: string): {token: string} {
-    if (username === 'admin' && password === 'password') {
-      return {token: this.token};
-    }
-    throw new UnauthorizedException();
+  constructor(private readonly usersService: UserService, private readonly redisService: RedisService, private jwtService: JwtService) {
   }
 
-  public isLoggedIn(token: string): boolean {
-    return token === this.token;
+  async login(username: string, pass: string): Promise<{ token: string }> {
+    try {
+      const user = this.usersService.getUserByUsername(username);
+      if (user && this.comparePassword(pass, user.password)) {
+        const token = this.jwtService.sign(user, { expiresIn: '60s' });
+        await this.redisService.set(token, user, 120);
+        return { token };
+      }
+      throw new UnauthorizedException();
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
+  }
+
+  async logout(token: string): Promise<boolean> {
+    try {
+      const result = await this.redisService.delete(token);
+      console.log(result);
+      return result === 1;
+    } catch (e) {
+      throw new InternalServerErrorException();
+    }
+  }
+
+  async getUserByTokenAndVerify(jwt: string): Promise<User> {
+    try {
+      return await this.jwtService.verify(jwt) && await this.redisService.get<User>(jwt);
+    } catch (e) {
+      throw new UnauthorizedException();
+    }
+  }
+
+  comparePassword(password1: string, hashedPassword: string): boolean {
+    return compareSync(password1, hashedPassword);
   }
 }

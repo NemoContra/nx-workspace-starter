@@ -3,7 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose'
 import * as redisStore from 'cache-manager-redis-store';
 
 const mongodbUri = '';
-const redisUri = '';
+export const redisUri = '';
 
 const loggerProvider: Provider = {provide: Logger, useFactory: () => new Logger('FlightServer')};
 
