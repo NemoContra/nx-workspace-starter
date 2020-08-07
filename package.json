@@ -51,7 +51,7 @@
     "@nrwl/workspace": "8.9.0",
     "angular-oauth2-oidc": "^8.0.4",
     "bootstrap": "4.4.1",
-    "class-transformer": "^0.2.0",
+    "class-transformer": "^0.3.1",
     "class-validator": "^0.11.0",
     "core-js": "^3.4.7",
     "reflect-metadata": "^0.1.12",
