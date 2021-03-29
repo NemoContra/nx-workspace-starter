@@ -1,0 +1,134 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "**/*"
+  ],
+  "plugins": [
+    "@nrwl/nx",
+    "import"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx"
+      ],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          2,
+          {
+            "allow": [],
+            "depConstraints": [
+            ],
+            "enforceBuildableLibDependency": true
+          }
+        ],
+        "no-prototype-builtins": "off"
+      }
+    },
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.*?.json"
+      },
+      "extends": [
+        "plugin:@nrwl/nx/typescript",
+        "prettier"
+      ],
+      "plugins": [
+        "eslint-plugin-react"
+      ],
+      "rules": {
+        "@typescript-eslint/array-type": [
+          "error",
+          {
+            "default": "array"
+          }
+        ],
+        "@typescript-eslint/dot-notation": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "off",
+          {
+            "accessibility": "explicit"
+          }
+        ],
+        "@typescript-eslint/member-delimiter-style": [
+          "off",
+          {
+            "multiline": {
+              "delimiter": "none",
+              "requireLast": true
+            },
+            "singleline": {
+              "delimiter": "semi",
+              "requireLast": false
+            }
+          }
+        ],
+        "@typescript-eslint/no-empty-function": "error",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "argsIgnorePattern": "^_"
+          }
+        ],
+        "@typescript-eslint/no-var-requires": "error",
+        "@typescript-eslint/semi": [
+          "off",
+          null
+        ],
+        "@typescript-eslint/type-annotation-spacing": "off",
+        "arrow-parens": [
+          "off",
+          "always"
+        ],
+        "brace-style": [
+          "error",
+          "1tbs"
+        ],
+        "eol-last": "off",
+        "linebreak-style": "off",
+        "max-len": "off",
+        "new-parens": "off",
+        "newline-per-chained-call": "off",
+        "no-empty": "error",
+        "no-extra-semi": "off",
+        "no-negated-async": "off",
+        "no-irregular-whitespace": "off",
+        "no-trailing-spaces": "off",
+        "quote-props": "off",
+        "react/jsx-curly-spacing": "off",
+        "react/jsx-equals-spacing": "off",
+        "react/jsx-wrap-multilines": "off",
+        "space-before-function-paren": "off",
+        "space-in-parens": [
+          "off",
+          "never"
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.js",
+        "*.jsx"
+      ],
+      "extends": [
+        "plugin:@nrwl/nx/javascript"
+      ],
+      "rules": {}
+    },
+    {
+      "files": [
+        "*.spec.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    }
+  ]
+}
