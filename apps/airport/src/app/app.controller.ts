@@ -1,16 +1,15 @@
-import { CacheInterceptor, CacheKey, Controller, UseInterceptors } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
-import { AppService } from './app.service';
-import { Observable } from 'rxjs';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) { }
 
-  @CacheKey('airports')
-  @UseInterceptors(CacheInterceptor)
   @MessagePattern({cmd: 'airports'})
-  public getAirports(): Observable<string[]> {
-    return this.appService.getAirports();
+  public getAirports(): string[] {
+    return [
+      'Flughafen Wien-Schwechat',
+      'Flughafen Manfred Rommel Stuttgart',
+      'Flughafen Helmut Schmidt Hamburg'
+    ];
   }
 }

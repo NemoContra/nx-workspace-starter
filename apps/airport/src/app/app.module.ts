@@ -1,18 +1,11 @@
-import { CacheModule, Logger, Module } from '@nestjs/common';
+import { Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 
 @Module({
-  imports: [
-    CacheModule.register({
-      ttl: 5,
-      max: 10
-    })
-  ],
   controllers: [AppController],
   providers: [
-    {provide: Logger, useFactory: () => new Logger('Airport Microservice')},
-    AppService
-  ],
+    { provide: Logger, useFactory: () => new Logger('Airport Microservice') }
+  ]
 })
-export class AppModule {}
+export class AppModule {
+}
