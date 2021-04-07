@@ -204,6 +204,62 @@
         }
       },
       "schematics": {}
+    },
+    "airport": {
+      "root": "apps/airport",
+      "sourceRoot": "apps/airport/src",
+      "projectType": "application",
+      "prefix": "airport",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/airport",
+            "main": "apps/airport/src/main.ts",
+            "tsConfig": "apps/airport/tsconfig.app.json",
+            "assets": [
+              "apps/airport/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/airport/src/environments/environment.ts",
+                  "with": "apps/airport/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "airport:build",
+            "inspect": false
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/airport/**/*.ts",
+              "apps/airport/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/airport/jest.config.js",
+            "tsConfig": "apps/airport/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {
