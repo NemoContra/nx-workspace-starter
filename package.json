@@ -61,12 +61,14 @@
     "cache-manager-redis-store": "^2.0.0",
     "class-transformer": "^0.4.0",
     "class-validator": "^0.13.1",
+    "commander": "^7.2.0",
     "core-js": "^3.9.1",
     "mongoose": "^5.12.2",
     "ngx-socket-io": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.6.7",
     "swagger-ui-express": "^4.1.6",
+    "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
@@ -85,7 +87,7 @@
     "@ngrx/store-devtools": "11.0.1",
     "@nrwl/eslint-plugin-nx": "^11.6.0",
     "@nrwl/jest": "^11.6.0",
-    "@nrwl/nest": "^11.6.0",
+    "@nrwl/nest": "^11.6.2",
     "@nrwl/node": "^11.6.0",
     "@types/cache-manager": "^3.4.0",
     "@types/jasmine": "~3.6.9",
@@ -118,6 +120,7 @@
     "protractor": "~7.0.0",
     "rxjs-marbles": "^6.0.1",
     "supertest": "^6.1.3",
+    "ts-jest": "26.4.0",
     "ts-node": "~9.1.1",
     "typescript": "~4.1.5"
   }

@@ -33,7 +33,7 @@ export class FlightController {
 
   @ApiQuery({name: 'from', type: String, description: 'Starting airport'})
   @ApiQuery({name: 'to', type: String, description: 'Destination airport'})
-  @ApiQuery({name: 'fromDate', type: String, description: 'Departure time of the flight', required: false})
+  @ApiQuery({name: 'fromDate', type: Date, description: 'Departure time of the flight', required: false})
   @ApiQuery({name: 'toDate', type: String, description: 'Arrival time of the flight', required: false})
   @ApiOkResponse({description: 'Returns an array of flights depending on query params', isArray: true, type: FlightServer })
   @Get()

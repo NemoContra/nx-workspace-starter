@@ -1,5 +1,4 @@
 {
-  "npmScope": "flight-app",
   "implicitDependencies": {
     ".eslintrc.json": "*",
     "angular.json": "*",
@@ -7,21 +6,13 @@
     "tsconfig.json": "*",
     "nx.json": "*"
   },
+  "npmScope": "flight-app",
   "projects": {
-    "nestjs-starter": {
-      "tags": []
-    },
-    "angular-starter": {
-      "tags": []
-    },
-    "angular-starter-e2e": {
-      "tags": []
-    },
-    "shared": {
-      "tags": []
-    },
-    "airport": {
-      "tags": []
-    }
+    "nestjs-starter": { "tags": [] },
+    "angular-starter": { "tags": [] },
+    "angular-starter-e2e": { "tags": [] },
+    "shared": { "tags": [] },
+    "airport": { "tags": [] },
+    "standalone-starter": { "tags": [] }
   }
 }

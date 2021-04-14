@@ -1,7 +1,26 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "",
+  "cli": {
+    "warnings": {
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "npm"
+  },
+  "defaultProject": "angular-starter",
+  "schematics": {
+    "@nrwl/schematics:library": {
+      "unitTestRunner": "karma",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:application": {
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "protractor"
+    },
+    "@nrwl/schematics:node-application": {
+      "framework": "express"
+    }
+  },
   "projects": {
     "nestjs-starter": {
       "root": "apps/nestjs-starter",
@@ -16,9 +35,7 @@
             "outputPath": "dist/apps/nestjs-starter",
             "main": "apps/nestjs-starter/src/main.ts",
             "tsConfig": "apps/nestjs-starter/tsconfig.app.json",
-            "assets": [
-              "apps/nestjs-starter/src/assets"
-            ]
+            "assets": ["apps/nestjs-starter/src/assets"]
           },
           "configurations": {
             "production": {
@@ -76,9 +93,7 @@
               "apps/angular-starter/src/favicon.ico",
               "apps/angular-starter/src/assets"
             ],
-            "styles": [
-              "apps/angular-starter/src/styles.css"
-            ],
+            "styles": ["apps/angular-starter/src/styles.css"],
             "scripts": []
           },
           "configurations": {
@@ -131,9 +146,7 @@
             "polyfills": "apps/angular-starter/src/polyfills.ts",
             "tsConfig": "apps/angular-starter/tsconfig.spec.json",
             "karmaConfig": "apps/angular-starter/karma.conf.js",
-            "styles": [
-              "apps/angular-starter/src/styles.css"
-            ],
+            "styles": ["apps/angular-starter/src/styles.css"],
             "scripts": [],
             "assets": [
               "apps/angular-starter/src/favicon.ico",
@@ -175,7 +188,6 @@
             "lintFilePatterns": [
               "apps/angular-starter-e2e/**/*.ts",
               "apps/angular-starter-e2e/**/*.html"
-
             ]
           }
         }
@@ -198,10 +210,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/**/*.ts",
-              "libs/shared/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/shared/**/*.ts", "libs/shared/**/*.html"]
           }
         }
       },
@@ -220,9 +229,7 @@
             "outputPath": "dist/apps/airport",
             "main": "apps/airport/src/main.ts",
             "tsConfig": "apps/airport/tsconfig.app.json",
-            "assets": [
-              "apps/airport/src/assets"
-            ]
+            "assets": ["apps/airport/src/assets"]
           },
           "configurations": {
             "production": {
@@ -252,9 +259,7 @@
               "apps/airport/tsconfig.app.json",
               "apps/airport/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "test": {
@@ -265,27 +270,56 @@
           }
         }
       }
-    }
-  },
-  "cli": {
-    "warnings": {
-      "versionMismatch": false
     },
-    "defaultCollection": "@nrwl/angular",
-    "packageManager": "npm"
-  },
-  "defaultProject": "angular-starter",
-  "schematics": {
-    "@nrwl/schematics:library": {
-      "unitTestRunner": "karma",
-      "framework": "angular"
-    },
-    "@nrwl/schematics:application": {
-      "unitTestRunner": "karma",
-      "e2eTestRunner": "protractor"
-    },
-    "@nrwl/schematics:node-application": {
-      "framework": "express"
+    "standalone-starter": {
+      "root": "apps/standalone-starter",
+      "sourceRoot": "apps/standalone-starter/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/standalone-starter",
+            "main": "apps/standalone-starter/src/main.ts",
+            "tsConfig": "apps/standalone-starter/tsconfig.app.json",
+            "assets": ["apps/standalone-starter/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/standalone-starter/src/environments/environment.ts",
+                  "with": "apps/standalone-starter/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "standalone-starter:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/standalone-starter/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/standalone-starter"],
+          "options": {
+            "jestConfig": "apps/standalone-starter/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }
