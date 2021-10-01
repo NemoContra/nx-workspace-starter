@@ -22,3 +22,13 @@ services:
     logging:
       options:
         max-size: '10m'
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+    logging:
+      options:
+        max-size: '10m'
