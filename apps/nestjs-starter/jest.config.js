@@ -1,5 +1,15 @@
 module.exports = {
-  name: 'nestjs-starter',
-  preset: '../../jest.config.js',
-  coverageDirectory: '../../coverage/apps/nestjs-starter'
+  displayName: 'jest-test',
+  preset: '../../jest.preset.js',
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+    },
+  },
+  testEnvironment: 'node',
+  transform: {
+    '^.+\\.[tj]s$': 'ts-jest',
+  },
+  moduleFileExtensions: ['ts', 'js', 'html'],
+  coverageDirectory: '../../coverage/apps/jest-test',
 };

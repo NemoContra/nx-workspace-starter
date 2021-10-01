@@ -3,59 +3,6 @@
   "version": 1,
   "newProjectRoot": "",
   "projects": {
-    "nestjs-starter": {
-      "root": "apps/nestjs-starter",
-      "sourceRoot": "apps/nestjs-starter/src",
-      "projectType": "application",
-      "prefix": "",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/nestjs-starter",
-            "main": "apps/nestjs-starter/src/main.ts",
-            "tsConfig": "apps/nestjs-starter/tsconfig.app.json",
-            "assets": [
-              "apps/nestjs-starter/src/assets"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "fileReplacements": [
-                {
-                  "replace": "apps/nestjs-starter/src/environments/environment.ts",
-                  "with": "apps/nestjs-starter/src/environments/environment.prod.ts"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "nestjs-starter:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "apps/nestjs-starter/**/*.ts",
-              "apps/nestjs-starter/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/nestjs-starter/jest.config.js"
-          }
-        }
-      }
-    },
     "angular-starter": {
       "root": "apps/angular-starter/",
       "sourceRoot": "apps/angular-starter/src",
@@ -75,10 +22,15 @@
               "apps/angular-starter/src/favicon.ico",
               "apps/angular-starter/src/assets"
             ],
-            "styles": [
-              "apps/angular-starter/src/styles.css"
-            ],
-            "scripts": []
+            "styles": ["apps/angular-starter/src/styles.css"],
+            "scripts": [],
+            "aot": false,
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -104,7 +56,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -130,9 +83,7 @@
             "polyfills": "apps/angular-starter/src/polyfills.ts",
             "tsConfig": "apps/angular-starter/tsconfig.spec.json",
             "karmaConfig": "apps/angular-starter/karma.conf.js",
-            "styles": [
-              "apps/angular-starter/src/styles.css"
-            ],
+            "styles": ["apps/angular-starter/src/styles.css"],
             "scripts": [],
             "assets": [
               "apps/angular-starter/src/favicon.ico",
@@ -179,6 +130,57 @@
         }
       }
     },
+    "nestjs-starter": {
+      "root": "apps/nestjs-starter",
+      "sourceRoot": "apps/nestjs-starter/src",
+      "projectType": "application",
+      "prefix": "",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/nestjs-starter",
+            "main": "apps/nestjs-starter/src/main.ts",
+            "tsConfig": "apps/nestjs-starter/tsconfig.app.json",
+            "assets": ["apps/nestjs-starter/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "apps/nestjs-starter/src/environments/environment.ts",
+                  "with": "apps/nestjs-starter/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "nestjs-starter:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/nestjs-starter/**/*.ts",
+              "apps/nestjs-starter/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/nestjs-starter/jest.config.js"
+          }
+        }
+      }
+    },
     "shared": {
       "root": "libs/shared",
       "sourceRoot": "libs/shared/src",
@@ -196,10 +198,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/**/*.ts",
-              "libs/shared/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/shared/**/*.ts", "libs/shared/**/*.html"]
           }
         }
       },

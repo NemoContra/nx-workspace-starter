@@ -8,17 +8,25 @@
     "nx.json": "*"
   },
   "projects": {
-    "nestjs-starter": {
-      "tags": []
-    },
     "angular-starter": {
       "tags": []
     },
     "angular-starter-e2e": {
       "tags": []
     },
+    "nestjs-starter": {
+      "tags": []
+    },
     "shared": {
       "tags": []
     }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
