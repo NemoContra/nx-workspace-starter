@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   mariadb:
-    container_name: mariadb
+    container_name: mariadb_flightapp
     image: mariadb:latest
     environment:
       - MARIADB_DATABASE=flightapp
@@ -14,7 +14,7 @@ services:
         max-size: '10m'
 
   mongodb:
-    container_name: mongodb
+    container_name: mongodb_flightapp
     image: mongo:latest
     ports:
       - 27017:27017
