@@ -1,27 +1,16 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "**/*"
-  ],
-  "plugins": [
-    "@nrwl/nx",
-    "import"
-  ],
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx", "import"],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js",
-        "*.jsx"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
           2,
           {
             "allow": [],
-            "depConstraints": [
-            ],
+            "depConstraints": [],
             "enforceBuildableLibDependency": true
           }
         ],
@@ -29,20 +18,12 @@
       }
     },
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "parserOptions": {
         "project": "./tsconfig.*?.json"
       },
-      "extends": [
-        "plugin:@nrwl/nx/typescript",
-        "prettier"
-      ],
-      "plugins": [
-        "eslint-plugin-react"
-      ],
+      "extends": ["plugin:@nrwl/nx/typescript", "prettier"],
+      "plugins": ["eslint-plugin-react"],
       "rules": {
         "@typescript-eslint/array-type": [
           "error",
@@ -78,19 +59,10 @@
           }
         ],
         "@typescript-eslint/no-var-requires": "error",
-        "@typescript-eslint/semi": [
-          "off",
-          null
-        ],
+        "@typescript-eslint/semi": ["off", null],
         "@typescript-eslint/type-annotation-spacing": "off",
-        "arrow-parens": [
-          "off",
-          "always"
-        ],
-        "brace-style": [
-          "error",
-          "1tbs"
-        ],
+        "arrow-parens": ["off", "always"],
+        "brace-style": ["error", "1tbs"],
         "eol-last": "off",
         "linebreak-style": "off",
         "max-len": "off",
@@ -106,26 +78,16 @@
         "react/jsx-equals-spacing": "off",
         "react/jsx-wrap-multilines": "off",
         "space-before-function-paren": "off",
-        "space-in-parens": [
-          "off",
-          "never"
-        ]
+        "space-in-parens": ["off", "never"]
       }
     },
     {
-      "files": [
-        "*.js",
-        "*.jsx"
-      ],
-      "extends": [
-        "plugin:@nrwl/nx/javascript"
-      ],
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
       "rules": {}
     },
     {
-      "files": [
-        "*.spec.ts"
-      ],
+      "files": ["*.spec.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
       }
