@@ -98,7 +98,7 @@
     "jest": "27.2.4",
     "jest-date-mock": "1.0.8",
     "jest-preset-angular": "10.0.1",
-    "karma": "6.3.4",
+    "karma": "6.3.16",
     "karma-chrome-launcher": "3.1.0",
     "karma-coverage-istanbul-reporter": "3.0.3",
     "karma-jasmine": "4.0.1",
