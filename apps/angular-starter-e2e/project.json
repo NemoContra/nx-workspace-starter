@@ -1,0 +1,28 @@
+{
+  "projectType": "application",
+  "prefix": "",
+  "targets": {
+    "e2e": {
+      "executor": "@angular-devkit/build-angular:protractor",
+      "options": {
+        "protractorConfig": "apps/angular-starter-e2e/protractor.conf.js",
+        "devServerTarget": "angular-starter:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "angular-starter:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/angular-starter-e2e/**/*.ts",
+          "apps/angular-starter-e2e/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
