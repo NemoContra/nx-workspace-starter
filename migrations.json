@@ -1,11 +1,12 @@
 {
   "migrations": [
     {
-      "description": "The road to v15 beta",
-      "version": "15-beta",
-      "factory": "./15_0_0-beta/index",
-      "package": "@ngrx/effects",
-      "name": "ngrx-effects-migration-15-beta"
+      "cli": "nx",
+      "version": "15.5.0-beta.0",
+      "description": "Update the @angular/cli package version to ~15.1.0.",
+      "factory": "./src/migrations/update-15-5-0/update-angular-cli",
+      "package": "@nrwl/angular",
+      "name": "update-angular-cli-version-15-1-0"
     }
   ]
 }
