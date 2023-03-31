@@ -1,4 +1,6 @@
 {
+  "name": "nestjs-starter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/nestjs-starter/src",
   "projectType": "application",
   "prefix": "",

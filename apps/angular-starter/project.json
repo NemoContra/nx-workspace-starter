@@ -1,4 +1,6 @@
 {
+  "name": "angular-starter",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/angular-starter/src",
   "projectType": "application",
   "prefix": "",
