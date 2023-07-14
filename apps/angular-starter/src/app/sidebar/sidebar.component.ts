@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'sidebar-cmp',
-    templateUrl: 'sidebar.component.html',
+  selector: 'flight-sidebar',
+  templateUrl: 'sidebar.component.html',
+  standalone: true,
 })
-
-export class SidebarComponent {
-}
+export class SidebarComponent {}
