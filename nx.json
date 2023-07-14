@@ -1,20 +1,18 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "flight-app",
-  "implicitDependencies": {
-    "angular.json": "*",
-    "package.json": "*",
-    ".eslintrc.json": "*",
-    "nx.json": "*",
-    "tsconfig.base.json": "*",
-    ".prettierignore": "*",
-    ".prettierrc": "*"
-  },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
+      "runner": "nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "component-test"
+        ],
+        "accessToken": "ZTZjNGE0YmYtYTUyZC00NTUxLTk0ZjQtNDFjNzVlNTIxMWM2fHJlYWQtd3JpdGU="
       }
     }
   },
@@ -31,6 +29,9 @@
     },
     "lint": {
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    },
+    "component-test": {
+      "inputs": ["default", "^production"]
     }
   },
   "namedInputs": {
@@ -40,9 +41,19 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/.eslintrc.json"
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/cypress/**/*",
+      "!{projectRoot}/**/*.cy.[jt]s?(x)",
+      "!{projectRoot}/cypress.config.[jt]s"
     ],
-    "sharedGlobals": []
+    "sharedGlobals": [
+      "{workspaceRoot}/angular.json",
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/.prettierignore",
+      "{workspaceRoot}/.prettierrc"
+    ]
   },
   "cli": {
     "warnings": {
@@ -52,16 +63,18 @@
   },
   "defaultProject": "angular-starter",
   "generators": {
-    "@nrwl/schematics:library": {
-      "unitTestRunner": "karma",
-      "framework": "angular"
+    "@nx/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
     },
-    "@nrwl/schematics:application": {
-      "unitTestRunner": "karma",
-      "e2eTestRunner": "protractor"
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
     },
-    "@nrwl/schematics:node-application": {
-      "framework": "express"
+    "@nx/angular:component": {
+      "style": "scss"
     }
   },
   "affected": {
