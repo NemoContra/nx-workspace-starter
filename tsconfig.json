@@ -19,9 +19,6 @@
     },
     {
       "path": "./tsconfig.editor.json"
-    },
-    {
-      "path": "./src/app/pages/list/cypress/tsconfig.json"
     }
   ],
   "angularCompilerOptions": {
