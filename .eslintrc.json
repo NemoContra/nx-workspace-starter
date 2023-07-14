@@ -1,12 +1,12 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx", "import"],
+  "plugins": ["@nx", "import"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
       "rules": {
-        "@nrwl/nx/enforce-module-boundaries": [
+        "@nx/enforce-module-boundaries": [
           2,
           {
             "allow": [],
@@ -22,7 +22,7 @@
       "parserOptions": {
         "project": "./tsconfig.*?.json"
       },
-      "extends": ["plugin:@nrwl/nx/typescript", "prettier"],
+      "extends": ["plugin:@nx/typescript", "prettier"],
       "plugins": ["eslint-plugin-react"],
       "rules": {
         "@typescript-eslint/array-type": [
@@ -83,7 +83,7 @@
     },
     {
       "files": ["*.js", "*.jsx"],
-      "extends": ["plugin:@nrwl/nx/javascript"],
+      "extends": ["plugin:@nx/javascript"],
       "rules": {}
     },
     {
