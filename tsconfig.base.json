@@ -1,24 +1,33 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "downlevelIteration": true,
+    "rootDir": ".",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "es2020",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2017", "dom"],
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@flight-app/shared": ["libs/shared/src/index.ts"]
-    },
-    "rootDir": "."
+      "@e2e-testing-workshop/common": ["libs/common/src/index.ts"],
+      "@e2e-testing-workshop/flight-card": ["libs/flight-card/src/index.ts"],
+      "@e2e-testing-workshop/flight-list": ["libs/flight-list/src/index.ts"],
+      "@e2e-testing-workshop/flight-search": [
+        "libs/flight-search/src/index.ts"
+      ],
+      "@e2e-testing-workshop/models": ["libs/models/src/index.ts"],
+      "@e2e-testing-workshop/navbar": ["libs/navbar/src/index.ts"],
+      "@e2e-testing-workshop/services": ["libs/services/src/index.ts"],
+      "@e2e-testing-workshop/sidebar": ["libs/sidebar/src/index.ts"],
+      "@e2e-testing-workshop/test-helpers": ["libs/test-helpers/src/index.ts"],
+      "@e2e-testing-workshop/test-id": ["libs/test-id/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,24 +1,27 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Component, inject, Renderer2 } from '@angular/core';
+import { WINDOW } from '@ng-web-apis/common';
+
+const getBody = () => inject<Window>(WINDOW).document.body;
 
 @Component({
-    selector: 'navbar-cmp',
-    templateUrl: 'navbar.component.html'
+  selector: 'flight-navbar',
+  templateUrl: 'navbar.component.html',
+  standalone: true,
 })
 export class NavbarComponent {
+  private sidebarVisible = false;
 
-    private sidebarVisible: boolean = false;
+  private body = getBody();
+  private renderer = inject(Renderer2);
 
-    sidebarToggle(){
-        var body = document.getElementsByTagName('body')[0];
-
-        if(this.sidebarVisible == false){
-            body.classList.add('nav-open');
-            this.sidebarVisible = true;
-        } else {
-            this.sidebarVisible = false;
-            body.classList.remove('nav-open');
-        }
+  sidebarToggle(): void {
+    if (this.sidebarVisible) {
+      this.sidebarVisible = false;
+      this.renderer.removeClass(this.body, 'nav-open');
+      return;
     }
+
+    this.renderer.addClass(this.body, 'nav-open');
+    this.sidebarVisible = true;
+  }
 }
