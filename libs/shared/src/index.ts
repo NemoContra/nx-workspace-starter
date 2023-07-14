@@ -1,1 +1,1 @@
-export * from './lib/flight.model';
+export * from './lib/models/flight.model';
