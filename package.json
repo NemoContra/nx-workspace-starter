@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": "ng",
+    "ng": "nx",
     "start:ng": "nx serve --project angular-starter",
     "build:ng": "nx build --project angular-starter",
     "test:ng": "nx test --project angular-starter",
