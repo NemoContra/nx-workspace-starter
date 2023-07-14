@@ -43,7 +43,10 @@
             "command": "nx serve nestjs-starter",
             "color": "blue"
           },
-          { "command": "nx serve angular-starter", "color": "yellow" }
+          {
+            "command": "nx serve angular-starter",
+            "color": "yellow"
+          }
         ],
         "parallel": true,
         "colors": true
