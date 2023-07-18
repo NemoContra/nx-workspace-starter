@@ -66,7 +66,7 @@
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
     "core-js": "3.29.1",
-    "mongoose": "6.10.4",
+    "mongoose": "6.11.3",
     "mysql2": "2.3.3",
     "ngx-socket-io": "4.5.1",
     "redis": "3.1.2",
