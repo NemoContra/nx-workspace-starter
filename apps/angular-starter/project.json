@@ -124,6 +124,12 @@
         "watch": {
           "devServerTarget": "angular-starter:serve:production",
           "watch": true
+        },
+        "chrome": {
+          "browser": "chrome"
+        },
+        "firefox": {
+          "browser": "firefox"
         }
       }
     },

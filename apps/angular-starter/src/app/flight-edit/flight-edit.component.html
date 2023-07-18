@@ -1,0 +1,80 @@
+<mat-dialog-content>
+  <div class="p40">
+    <h2>Flight Edit</h2>
+
+    <form #form="ngForm" class="form-group">
+      <div *ngIf="!form?.controls?.['from']?.valid" class="alert alert-danger">
+        Validation errors in 'from'.
+      </div>
+      <div
+        *ngIf="form?.controls?.['from']?.hasError('required')"
+        class="alert alert-danger"
+      >
+        The field 'from' is required!
+      </div>
+      <div
+        *ngIf="form?.controls?.['from']?.hasError('minlength')"
+        class="alert alert-danger"
+      >
+        The field 'from' needs to have at least
+        {{form?.controls?.['from']?.errors?.['minlength']?.requiredLength}}
+        characters.
+      </div>
+      <div *ngIf="!form?.controls?.['from']?.valid" class="alert alert-danger">
+        Internal error object: {{ form?.controls?.['from']?.errors | json }}
+      </div>
+
+      <div>
+        <div class="row">
+          <input
+            placeholder="Id"
+            class="form-control"
+            name="id"
+            [(ngModel)]="flight.id"
+          />
+        </div>
+        <div class="row">
+          <input
+            placeholder="From"
+            class="form-control"
+            name="from"
+            [(ngModel)]="flight.from"
+            required
+            minlength="3"
+          />
+        </div>
+        <div class="row">
+          <input
+            placeholder="To"
+            class="form-control"
+            name="to"
+            [(ngModel)]="flight.to"
+          />
+        </div>
+        <div class="row">
+          <input
+            placeholder="Date"
+            class="form-control"
+            name="date"
+            [(ngModel)]="flight.date"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <input
+          name="delayed"
+          class="form-control"
+          id="delayed"
+          [(ngModel)]="flight.delayed"
+          type="checkbox"
+        />
+        <label for="delayed" class="form-label">Delayed</label>
+      </div>
+
+      <div>
+        <button (click)="close()" class="btn btn-default">Close</button>
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>

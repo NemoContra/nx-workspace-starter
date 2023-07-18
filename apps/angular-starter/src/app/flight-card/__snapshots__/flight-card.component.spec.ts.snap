@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FlightCardComponent should render 1`] = `
+<flight-card
+  dialog={[Function Object]}
+  item={[Function Object]}
+  selected="false"
+  selectedChange={[Function EventEmitter_]}
+>
+  <div
+    class="card"
+  >
+    <div
+      class="card-header"
+    >
+      <h2
+        class="title"
+      >
+         Hamburg - Rankweil 
+      </h2>
+    </div>
+    <div
+      class="card-body"
+    >
+      <p>
+        Flight-No.: #1
+      </p>
+      <p>
+        Date: 20.07.2023 00:00
+      </p>
+      <p>
+        Delayed: false
+      </p>
+      <p>
+        <button
+          class="btn btn-default"
+          data-testid="select-button"
+        >
+           Select 
+        </button>
+        <button
+          class="btn btn-default"
+          data-testid="edit-button"
+        >
+           Edit 
+        </button>
+      </p>
+    </div>
+  </div>
+</flight-card>
+`;
+
+exports[`FlightCardComponent should select a flight 1`] = `
+<flight-card
+  dialog={[Function Object]}
+  item={[Function Object]}
+  selected={[Function Boolean]}
+  selectedChange={[Function EventEmitter_]}
+>
+  <div
+    class="card selected"
+  >
+    <div
+      class="card-header"
+    >
+      <h2
+        class="title"
+      >
+         Hamburg - Rankweil 
+      </h2>
+    </div>
+    <div
+      class="card-body"
+    >
+      <p>
+        Flight-No.: #1
+      </p>
+      <p>
+        Date: 20.07.2023 00:00
+      </p>
+      <p>
+        Delayed: false
+      </p>
+      <p>
+        <button
+          class="btn btn-default"
+          data-testid="deselect-button"
+        >
+           Remove 
+        </button>
+        <button
+          class="btn btn-default"
+          data-testid="edit-button"
+        >
+           Edit 
+        </button>
+      </p>
+    </div>
+  </div>
+</flight-card>
+`;
