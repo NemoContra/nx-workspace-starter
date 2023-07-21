@@ -1,9 +1,9 @@
 /*     General overwrite     */
-.loader-container{
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    text-align: center;
+.loader-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  text-align: center;
 }
 .loader,
 .loader:before,
@@ -17,13 +17,13 @@
   animation: load7 1.8s infinite ease-in-out;
 }
 .loader {
-    color: #9A9A9A;
-    top: calc(50% - 40px);
-    left: calc(50% - 10px);
-    position: relative;
-    font-size: 10px;
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
+  color: #9a9a9a;
+  top: calc(50% - 40px);
+  left: calc(50% - 10px);
+  position: relative;
+  font-size: 10px;
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
 }
 .loader:before,
 .loader:after {
@@ -60,37 +60,38 @@
   }
 }
 
-
-body{
-    color: $font-color;
-    font-size: $font-size-base;
-    font-family: 'Muli', Arial, sans-serif;
-    .wrapper{
-        min-height: 100vh;
-        position: relative;
-    }
+body {
+  color: $font-color;
+  font-size: $font-size-base;
+  font-family: 'Muli', Arial, sans-serif;
+  .wrapper {
+    min-height: 100vh;
+    position: relative;
+  }
 }
-a{
+a {
   color: $info-color;
 
-  &:hover, &:focus{
-     color: $info-states-color;
-     text-decoration: none;
+  &:hover,
+  &:focus {
+    color: $info-states-color;
+    text-decoration: none;
   }
 }
 
-a:focus, a:active,
+a:focus,
+a:active,
 button::-moz-focus-inner,
 input::-moz-focus-inner,
 select::-moz-focus-inner,
-input[type="file"] > input[type="button"]::-moz-focus-inner{
-    outline:0 !important;
+input[type='file'] > input[type='button']::-moz-focus-inner {
+  outline: 0 !important;
 }
 .ui-slider-handle:focus,
 .navbar-toggle,
 input:focus,
 button:focus {
-    outline : 0 !important;
+  outline: 0 !important;
 }
 
 /*           Animations              */
@@ -98,34 +99,34 @@ button:focus {
 .input-group-addon,
 .tagsinput,
 .navbar,
-.navbar .alert{
-    @include transition($general-transition-time, $transition-linear);
+.navbar .alert {
+  @include transition($general-transition-time, $transition-linear);
 }
 
 .sidebar .nav a,
-.table > tbody > tr .td-actions .btn{
-    @include transition($fast-transition-time, $transition-ease-in);
+.table > tbody > tr .td-actions .btn {
+  @include transition($fast-transition-time, $transition-ease-in);
 }
 
-.btn{
-    @include transition($ultra-fast-transition-time, $transition-ease-in);
+.btn {
+  @include transition($ultra-fast-transition-time, $transition-ease-in);
 }
-.fa{
-    width: 21px;
-    text-align: center;
+.fa {
+  width: 21px;
+  text-align: center;
 }
-.fa-base{
-    font-size: 1.25em !important;
+.fa-base {
+  font-size: 1.25em !important;
 }
 
-.margin-top{
-    margin-top: 50px;
+.margin-top {
+  margin-top: 50px;
 }
-hr{
-    border-color: $medium-pale-bg;
+hr {
+  border-color: $medium-pale-bg;
 }
-.wrapper{
-    position: relative;
-    top: 0;
-    height: 100vh;
+.wrapper {
+  position: relative;
+  top: 0;
+  height: 100vh;
 }

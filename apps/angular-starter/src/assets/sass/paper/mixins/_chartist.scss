@@ -1,6 +1,42 @@
 // Scales for responsive SVG containers
-$ct-scales: ((1), (15/16), (8/9), (5/6), (4/5), (3/4), (2/3), (5/8), (1/1.618), (3/5), (9/16), (8/15), (1/2), (2/5), (3/8), (1/3), (1/4)) !default;
-$ct-scales-names: (ct-square, ct-minor-second, ct-major-second, ct-minor-third, ct-major-third, ct-perfect-fourth, ct-perfect-fifth, ct-minor-sixth, ct-golden-section, ct-major-sixth, ct-minor-seventh, ct-major-seventh, ct-octave, ct-major-tenth, ct-major-eleventh, ct-major-twelfth, ct-double-octave) !default;
+$ct-scales: (
+  (1),
+  (15/16),
+  (8/9),
+  (5/6),
+  (4/5),
+  (3/4),
+  (2/3),
+  (5/8),
+  (1/1.618),
+  (3/5),
+  (9/16),
+  (8/15),
+  (1/2),
+  (2/5),
+  (3/8),
+  (1/3),
+  (1/4)
+) !default;
+$ct-scales-names: (
+  ct-square,
+  ct-minor-second,
+  ct-major-second,
+  ct-minor-third,
+  ct-major-third,
+  ct-perfect-fourth,
+  ct-perfect-fifth,
+  ct-minor-sixth,
+  ct-golden-section,
+  ct-major-sixth,
+  ct-minor-seventh,
+  ct-major-seventh,
+  ct-octave,
+  ct-major-tenth,
+  ct-major-eleventh,
+  ct-major-twelfth,
+  ct-double-octave
+) !default;
 
 // Class names to be used when generating CSS
 $ct-class-chart: ct-chart !default;
@@ -72,33 +108,32 @@ $ct-series-colors: (
   $danger-color,
   $success-color,
   $primary-color,
-  rgba($info-color,.8),
-  rgba($success-color,.8),
-  rgba($warning-color,.8),
-  rgba($danger-color,.8),
-  rgba($primary-color,.8),
-  rgba($info-color,.6),
-  rgba($success-color,.6),
-  rgba($warning-color,.6),
-  rgba($danger-color,.6),
-  rgba($primary-color,.6)
-  
+  rgba($info-color, 0.8),
+  rgba($success-color, 0.8),
+  rgba($warning-color, 0.8),
+  rgba($danger-color, 0.8),
+  rgba($primary-color, 0.8),
+  rgba($info-color, 0.6),
+  rgba($success-color, 0.6),
+  rgba($warning-color, 0.6),
+  rgba($danger-color, 0.6),
+  rgba($primary-color, 0.6)
 ) !default;
 
 // Paper Kit Colors
 
-.ct-blue{
-    stroke: $primary-color !important;
+.ct-blue {
+  stroke: $primary-color !important;
 }
-.ct-azure{
-    stroke: $info-color !important;
+.ct-azure {
+  stroke: $info-color !important;
 }
-.ct-green{
-    stroke: $success-color !important;
+.ct-green {
+  stroke: $success-color !important;
 }
-.ct-orange{
-    stroke: $warning-color !important;
+.ct-orange {
+  stroke: $warning-color !important;
 }
-.ct-red{
-    stroke: $danger-color !important;
+.ct-red {
+  stroke: $danger-color !important;
 }
