@@ -1,0 +1,52 @@
+{
+  "sourceRoot": "apps/airport/src",
+  "projectType": "application",
+  "prefix": "airport",
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "options": {
+        "outputPath": "dist/apps/airport",
+        "main": "apps/airport/src/main.ts",
+        "tsConfig": "apps/airport/tsconfig.app.json",
+        "assets": ["apps/airport/src/assets"],
+        "target": "node",
+        "compiler": "tsc"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/airport/src/environments/environment.ts",
+              "with": "apps/airport/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "airport:build",
+        "inspect": false
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/airport/**/*.ts", "apps/airport/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/airport/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}
