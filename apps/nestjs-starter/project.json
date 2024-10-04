@@ -64,7 +64,8 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/nestjs-starter/jest.config.ts"
+        "jestConfig": "apps/nestjs-starter/jest.config.ts",
+        "passWithNoTests": false
       }
     }
   },
