@@ -78,13 +78,17 @@
         "react/jsx-equals-spacing": "off",
         "react/jsx-wrap-multilines": "off",
         "space-before-function-paren": "off",
-        "space-in-parens": ["off", "never"]
+        "space-in-parens": ["off", "never"],
+        "@typescript-eslint/no-extra-semi": "error"
       }
     },
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
-      "rules": {}
+      "rules": {
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
+      }
     },
     {
       "files": ["*.spec.ts"],
