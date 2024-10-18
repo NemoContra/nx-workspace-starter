@@ -116,7 +116,7 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-cypress": "3.6.0",
     "eslint-plugin-import": "2.31.0",
-    "eslint-plugin-jsdoc": "40.1.0",
+    "eslint-plugin-jsdoc": "50.4.3",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-react": "7.37.1",
     "html-webpack-plugin": "5.5.0",
