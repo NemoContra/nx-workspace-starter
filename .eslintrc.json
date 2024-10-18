@@ -84,9 +84,7 @@
     {
       "files": ["*.js", "*.jsx"],
       "extends": ["plugin:@nx/javascript"],
-      "rules": {
-        "no-extra-semi": "off"
-      }
+      "rules": {}
     },
     {
       "files": ["*.spec.ts"],
