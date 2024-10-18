@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'jest-test',
+  displayName: 'nestjs-starter',
   preset: '../../jest.preset.js',
   globals: {},
   testEnvironment: 'node',
@@ -13,5 +13,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/jest-test',
+  coverageDirectory: '../../coverage/apps/nestjs-starter',
 };
