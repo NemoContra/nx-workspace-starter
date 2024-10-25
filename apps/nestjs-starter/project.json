@@ -12,6 +12,7 @@
         "outputPath": "dist/apps/nestjs-starter",
         "main": "apps/nestjs-starter/src/main.ts",
         "tsConfig": "apps/nestjs-starter/tsconfig.app.json",
+        "webpackConfig": "apps/nestjs-starter/webpack.config.js",
         "assets": ["apps/nestjs-starter/src/assets"],
         "target": "node",
         "compiler": "tsc"
