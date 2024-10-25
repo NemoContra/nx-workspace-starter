@@ -75,7 +75,6 @@
       "style": "scss"
     }
   },
-  "nxCloudAccessToken": "ZTZjNGE0YmYtYTUyZC00NTUxLTk0ZjQtNDFjNzVlNTIxMWM2fHJlYWQtd3JpdGU=",
   "useInferencePlugins": false,
   "defaultBase": "master"
 }
