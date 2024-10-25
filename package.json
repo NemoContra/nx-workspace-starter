@@ -11,6 +11,7 @@
     "build:nest": "nx build --project nestjs-starter",
     "test:nest": "nx test --project nestjs-starter",
     "start": "npm-run-all --parallel start:nest start:ng",
+    "build": "nx run-many --target build",
     "lint": "nx run-many --target lint",
     "test": "nx run-many --target test",
     "e2e": "nx run-many --target e2e",
