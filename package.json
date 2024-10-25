@@ -57,7 +57,7 @@
     "@ngrx/store": "18.1.0",
     "angular-oauth2-oidc": "17.0.2",
     "axios": "1.7.7",
-    "bootstrap": "5.2.3",
+    "bootstrap": "5.3.3",
     "cache-manager": "5.7.6",
     "cache-manager-redis-store": "3.0.1",
     "class-transformer": "0.5.1",
