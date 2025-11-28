@@ -4,6 +4,7 @@
   "sourceRoot": "apps/nestjs-starter/src",
   "projectType": "application",
   "prefix": "",
+  "tags": [],
   "generators": {},
   "targets": {
     "build": {
@@ -68,6 +69,5 @@
         "jestConfig": "apps/nestjs-starter/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }
